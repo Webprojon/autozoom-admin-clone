@@ -31,7 +31,7 @@ export default function LogIn() {
 				localStorage.setItem("loginToken", logintoken);
 				toast.success("Successfully logged in!");
 				setTimeout(() => {
-					navigate("/home");
+					navigate("/");
 				}, 1200);
 				setPhoneNumber("");
 				setPassword("");
@@ -44,27 +44,31 @@ export default function LogIn() {
 	};
 
 	return (
-		<form
-			onSubmit={LogInBek}
-			className="border-2 border-sky-600 flex flex-col gap-y-5 w-[340px] mx-auto mt-20 rounded-lg p-6"
-		>
-			<input
-				type="text"
-				placeholder="Phone number"
-				value={phoneNumber}
-				onChange={(e) => setPhoneNumber(e.target.value)}
-				className="outline-none py-3 px-4 bg-gray-200 rounded-lg"
-			/>
-			<input
-				type="password"
-				placeholder="Password"
-				value={password}
-				onChange={(e) => setPassword(e.target.value)}
-				className="outline-none py-3 px-4 bg-gray-200 rounded-lg"
-			/>
-			<button className="bg-sky-400 hover:bg-sky-500 hover:scale-105 active:scale-100 transition-all py-3 px-4 text-white font-semibold rounded-lg">
-				Log in
-			</button>
-		</form>
+		<div className="absolute top-[18rem] left-1/2 -translate-y-1/2 -translate-x-1/2">
+			<form
+				onSubmit={LogInBek}
+				className="border-2 bg-slate-700 flex flex-col justify-center gap-y-5 h-[40vh] w-[400px] rounded-lg p-6 font-medium text-slate-200 tracking-wider"
+			>
+				<input
+					type="text"
+					required
+					value={phoneNumber}
+					placeholder="Phone number"
+					onChange={(e) => setPhoneNumber(e.target.value)}
+					className="outline-none py-3 px-4 bg-slate-600 rounded-lg placeholder:text-slate-200"
+				/>
+				<input
+					required
+					type="password"
+					placeholder="Password"
+					value={password}
+					onChange={(e) => setPassword(e.target.value)}
+					className="outline-none py-3 px-4 bg-slate-600 rounded-lg placeholder:text-slate-200"
+				/>
+				<button className="bg-slate-400 hover:bg-slate-500 transition-all py-3 px-4 text-white rounded-lg">
+					Log in
+				</button>
+			</form>
+		</div>
 	);
 }

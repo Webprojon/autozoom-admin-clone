@@ -1,25 +1,33 @@
-import Home from "./Home/Home";
-import { Routes, Route, useNavigate } from "react-router-dom";
-import LogIn from "./LogIn/LogIn";
+import Home from "./pages/Home";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import LogIn from "./components/LogIn";
 import { useEffect } from "react";
+import Categories from "./pages/Categories";
+import Header from "./components/Header";
+import Settings from "./pages/Settings";
 
 function App() {
 	const navigate = useNavigate();
 	const userToken = localStorage.getItem("loginToken");
+	const location = useLocation();
+	const pathname = location.pathname !== "/login";
 
 	useEffect(() => {
 		if (userToken?.includes("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ey")) {
-			navigate("/home");
+			navigate("/dashboard");
 		} else {
 			navigate("/");
 		}
 	}, []);
 
 	return (
-		<section>
+		<section className="bg-gray-300 h-[100vh]">
+			{pathname ? <Header /> : null}
 			<Routes>
-				<Route path="/" element={<LogIn />} />
-				<Route path="/home" element={<Home />} />
+				<Route path="/login" element={<LogIn />} />
+				<Route path="/dashboard" element={<Home />} />
+				<Route path="/categories" element={<Categories />} />
+				<Route path="/settings" element={<Settings />} />
 			</Routes>
 		</section>
 	);
