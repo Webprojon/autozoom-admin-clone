@@ -31,7 +31,7 @@ export default function LogIn() {
 				localStorage.setItem("loginToken", logintoken);
 				toast.success("Successfully logged in!");
 				setTimeout(() => {
-					navigate("/");
+					navigate("/dashboard");
 				}, 1200);
 				setPhoneNumber("");
 				setPassword("");

@@ -16,7 +16,7 @@ function App() {
 		if (userToken?.includes("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ey")) {
 			navigate("/dashboard");
 		} else {
-			navigate("/");
+			navigate("/login");
 		}
 	}, []);
 
