@@ -4,7 +4,7 @@ import { FaEdit } from "react-icons/fa";
 export default function UpdateIcon() {
 	return (
 		<div className="relative">
-			<FaEdit className="size-6 text-sky-400" />
+			<FaEdit className="size-6 text-sky-600" />
 			{/*<UpdateModal />*/}
 		</div>
 	);

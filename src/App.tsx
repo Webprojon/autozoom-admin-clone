@@ -9,11 +9,13 @@ import Models from "./pages/Models";
 import Locations from "./pages/Locations";
 import Cities from "./pages/Cities";
 import Cars from "./pages/Cars";
+import AddModal from "./components/Add";
+import { useGlobalContext } from "./context/global-context";
 
 function App() {
+	const { isModalOpen } = useGlobalContext();
 	const navigate = useNavigate();
 	const userToken = localStorage.getItem("loginToken");
-
 	const location = useLocation();
 	const pathname = location.pathname !== "/login";
 
@@ -38,6 +40,7 @@ function App() {
 				<Route path="/cities" element={<Cities />} />
 				<Route path="/cars" element={<Cars />} />
 			</Routes>
+			{isModalOpen ? <AddModal /> : null}
 		</section>
 	);
 }

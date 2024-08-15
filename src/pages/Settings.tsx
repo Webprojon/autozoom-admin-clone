@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import UpdateIcon from "../components/Update";
 import DeleteIcon from "../components/Delete";
 import { MdFormatListBulletedAdd } from "react-icons/md";
+import { useGlobalContext } from "../context/global-context";
 
 interface DataType {
 	id: string;
@@ -11,6 +12,7 @@ interface DataType {
 }
 
 export default function Settings() {
+	const { isModalOpen, setIsModalOpen } = useGlobalContext();
 	const [data, setData] = useState([]);
 
 	const getData = async () => {
@@ -22,6 +24,7 @@ export default function Settings() {
 
 			if (res.success) {
 				setData(res.data);
+				getData();
 			}
 		} catch (error) {
 			console.log(error);
@@ -33,10 +36,13 @@ export default function Settings() {
 	}, []);
 
 	return (
-		<section className="ml-[18.5rem] mt-2">
+		<section className="ml-[18.3rem] mt-2">
 			<div className="flex justify-between items-center mr-5 font-semibold tracking-wide">
 				<h2 className="text-black/75 text-[20px]">Settings</h2>
-				<button className="bg-slate-800 text-slate-300 flex items-center px-4 py-[5px] rounded-md hover:bg-slate-600 transition-all">
+				<button
+					onClick={() => setIsModalOpen(!isModalOpen)}
+					className="bg-slate-800 text-slate-300 flex items-center px-4 py-[5px] rounded-md hover:bg-slate-700 transition-all"
+				>
 					<MdFormatListBulletedAdd className="mr-2" />
 					Add new
 				</button>
@@ -45,14 +51,14 @@ export default function Settings() {
 			<main className="mt-4 w-[1206px]">
 				<div className="bg-slate-800 w-full py-4 px-6 rounded-t-lg">
 					<ul className="flex justify-between tracking-wider font-semibold text-slate-300 text-[18px]">
-						<li className="w-[14rem]">Car Names</li>
-						<li className="w-[14rem]">Car Names</li>
-						<li className="w-[5rem]">Images</li>
-						<li>Actions</li>
+						<li className="w-[14rem]">Name_en</li>
+						<li className="w-[14rem]">Name_ru</li>
+						<li className="w-[5rem]">Image</li>
+						<li>Action</li>
 					</ul>
 				</div>
 
-				<div className="w-full p-6 h-[70vh] bg-slate-200 rounded-b-lg overflow-y-scroll no-scrollbar">
+				<div className="w-full p-6 h-[72vh] bg-slate-200 rounded-b-lg overflow-y-scroll no-scrollbar">
 					{data.map((item: DataType) => (
 						<ul
 							key={item.id}
