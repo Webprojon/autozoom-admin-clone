@@ -1,14 +1,15 @@
-import { useState } from "react";
-import { RiLogoutBoxLine } from "react-icons/ri";
-import { IoChevronDown, IoChevronUp, IoSettingsSharp } from "react-icons/io5";
-import { Link, useNavigate } from "react-router-dom";
-import { MdAccountBox } from "react-icons/md";
-import { IoMdHome } from "react-icons/io";
-import { BiCategory } from "react-icons/bi";
+import { IoSettingsOutline } from "react-icons/io5";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { IoLogoModelS, IoMdHome } from "react-icons/io";
+import { FaStore } from "react-icons/fa";
+import { BiSolidCity } from "react-icons/bi";
+import { PiNotebookBold } from "react-icons/pi";
+import { GrMapLocation } from "react-icons/gr";
 
 export default function Header() {
-	const [toggleMenu, setToggleMenu] = useState<boolean>(false);
 	const navigate = useNavigate();
+	const location = useLocation();
+	const pathname = location.pathname;
 
 	const logOut = () => {
 		setTimeout(() => {
@@ -17,69 +18,59 @@ export default function Header() {
 		}, 1200);
 	};
 
-	const handleToggleNav = () => {
-		setToggleMenu(!toggleMenu);
-	};
+	const links = [
+		{
+			to: "/dashboard",
+			icon: <IoMdHome className="size-6" />,
+			label: "Dashboard",
+		},
+		{
+			to: "/settings",
+			icon: <IoSettingsOutline className="size-5" />,
+			label: "Settings",
+		},
+		{ to: "/brands", icon: <FaStore className="size-5" />, label: "Brands" },
+		{
+			to: "/models",
+			icon: <PiNotebookBold className="size-5" />,
+			label: "Models",
+		},
+		{
+			to: "/locations",
+			icon: <GrMapLocation className="size-5" />,
+			label: "Locations",
+		},
+		{
+			to: "/cities",
+			icon: <BiSolidCity className="size-5" />,
+			label: "Cities",
+		},
+		{ to: "/cars", icon: <IoLogoModelS className="size-5" />, label: "Cars" },
+	];
 
 	//${isVisible ? "translate-x-0" : "-translate-x-full"}
 	return (
 		<header className="z-[999]">
-			<nav className="flex justify-between items-center px-6 bg-slate-700 h-[11vh] border-b border-gray-600 text-slate-400 font-bold text-[20px]">
-				<h2>CRUD APP</h2>
+			<nav className="flex justify-between items-center px-6 bg-slate-800 h-[9vh] border-b border-gray-600 text-slate-300 font-semibold text-[20px]">
+				<h2>Avto Rent Admin</h2>
 				<button onClick={logOut}>Log out</button>
 			</nav>
 
 			<aside
-				className={`pt-2 z-10 fixed left-0 bg-slate-700 min-h-screen w-[18rem] transition-transform duration-200 
-					font-semibold tracking-wider text-slate-400 md:translate-x-0`}
+				className={`pt-2 z-10 fixed left-0 bg-slate-800 min-h-screen w-[17rem] transition-transform duration-200 
+      font-semibold tracking-wider text-slate-300 space-y-2`}
 			>
-				<Link
-					to="/dashboard"
-					className="flex items-center gap-x-3 text-lg py-[.6rem] hover:bg-slate-800 px-3 my-1 mx-3 rounded-md"
-				>
-					<IoMdHome className="size-6" />
-					Dashboard
-				</Link>
-				<Link
-					to="/categories"
-					className="flex items-center gap-x-3 text-lg py-[.6rem] hover:bg-slate-800 px-3 my-1 mx-3 rounded-md"
-				>
-					<BiCategory className="size-5" />
-					Categories
-				</Link>
-				<div className="my-4 border-b border-gray-600 dark:border-gray-600"></div>
-				<div
-					onClick={handleToggleNav}
-					className="flex flex-col text-lg py-[.6rem] text-slate-400 font-semibold hover:bg-slate-800
-					 px-3 my-1 mx-3 rounded-md tracking-wider cursor-pointer"
-				>
-					<div className="flex items-center justify-between gap-x-3">
-						<span className="flex items-center gap-x-3">
-							<MdAccountBox className="size-5" />
-							Account
-						</span>
-						{toggleMenu ? <IoChevronUp /> : <IoChevronDown />}
-					</div>
-				</div>
-				{toggleMenu && (
-					<div className="tracking-wider text-slate-400 font-semibold">
-						<Link
-							to="/settings"
-							className="flex items-center gap-x-3 text-lg py-[.6rem] hover:bg-slate-800 px-3 my-1 mx-3 mr-5 ml-5 rounded-md"
-						>
-							<IoSettingsSharp className="size-5" />
-							Settings
-						</Link>
-
-						<button
-							onClick={logOut}
-							className="w-[85%] flex items-center gap-x-3 text-lg py-[.6rem] hover:bg-slate-800 px-3 my-1 mx-3 mr-5 ml-5 rounded-md"
-						>
-							<RiLogoutBoxLine className="size-5" />
-							Log out
-						</button>
-					</div>
-				)}
+				{links.map((link, index) => (
+					<Link
+						key={index}
+						to={link.to}
+						className={`flex items-center gap-x-3 py-2 hover:text-slate-400 px-3 mx-3 rounded-md
+							${pathname === link.to ? "bg-slate-700" : ""}`}
+					>
+						{link.icon}
+						{link.label}
+					</Link>
+				))}
 			</aside>
 		</header>
 	);
