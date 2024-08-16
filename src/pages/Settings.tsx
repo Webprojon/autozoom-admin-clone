@@ -12,8 +12,8 @@ interface DataType {
 }
 
 export default function Settings() {
-	const { isModalOpen, setIsModalOpen } = useGlobalContext();
-	const [data, setData] = useState([]);
+	const { isModalOpen, setIsModalOpen, setItemId } = useGlobalContext();
+	const [data, setData] = useState<DataType[]>([]);
 
 	const getData = async () => {
 		try {
@@ -34,6 +34,10 @@ export default function Settings() {
 	useEffect(() => {
 		getData();
 	}, []);
+
+	const handleDelete = (id: string) => {
+		setData((prevData) => prevData.filter((item) => item.id !== id));
+	};
 
 	return (
 		<section className="ml-[18.3rem] mt-2">
@@ -76,9 +80,12 @@ export default function Settings() {
 									alt="imgs"
 								/>
 							</li>
-							<li className="w-[4rem] flex items-center gap-x-4 cursor-pointer">
+							<li
+								onClick={() => setItemId(item.id)}
+								className="w-[4rem] flex items-center gap-x-4 cursor-pointer"
+							>
 								<UpdateIcon />
-								<DeleteIcon />
+								<DeleteIcon itemId={item.id} onDelete={handleDelete} />
 							</li>
 						</ul>
 					))}

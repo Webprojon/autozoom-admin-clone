@@ -104,7 +104,7 @@ export default function AddModal() {
 							/>
 							<button
 								type="button"
-								className="mt-2 py-6 px-8 text-[15px] border border-dashed border-sky-300 rounded bg-white text-gray-700"
+								className="mt-2 py-6 px-8 text-[15px] border border-dashed border-sky-600 rounded bg-white text-gray-700"
 							>
 								Upload
 							</button>
