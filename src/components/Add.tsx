@@ -104,7 +104,7 @@ export default function AddModal() {
 							/>
 							<button
 								type="button"
-								className="mt-2 py-6 px-8 text-[15px] border border-dashed border-sky-600 rounded bg-white text-gray-700"
+								className="mt-2 py-6 px-8 text-[15px] font-semibold border border-dashed border-sky-800 rounded bg-white text-gray-700"
 							>
 								Upload
 							</button>
@@ -113,11 +113,11 @@ export default function AddModal() {
 					<div className="space-x-4 self-end cursor-pointer text-[17px] transition-all">
 						<button
 							onClick={handleToggleModal}
-							className="hover:bg-black hover:text-white border border-black/50 rounded-md py-1 px-5"
+							className="hover:bg-slate-800 hover:text-white border border-black/50 rounded-md py-1 px-5"
 						>
 							Cancel
 						</button>
-						<button className="hover:bg-sky-600 py-1 px-7 rounded-md bg-sky-500 text-white">
+						<button className="hover:bg-slate-700 py-1 px-7 rounded-md bg-slate-800 text-white">
 							Add
 						</button>
 					</div>
