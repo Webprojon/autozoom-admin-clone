@@ -15,7 +15,7 @@ import UpdateModal from "./components/Update-Modal";
 function App() {
 	const { addTaskModal, updateTaskModal } = useGlobalContext();
 	const navigate = useNavigate();
-	const userToken = localStorage.getItem("loginToken");
+	const userToken = sessionStorage.getItem("loginToken");
 	const location = useLocation();
 	const pathname = location.pathname !== "/login";
 
