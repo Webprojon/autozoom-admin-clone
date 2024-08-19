@@ -1,8 +1,12 @@
 import React, { createContext, useState, ReactNode, useContext } from "react";
 
 export interface GlobalContextType {
-	isModalOpen: boolean;
-	setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+	addTaskModal: boolean;
+	setAddtaskModal: React.Dispatch<React.SetStateAction<boolean>>;
+	updateTaskModal: boolean;
+	setUpdatetaskModal: React.Dispatch<React.SetStateAction<boolean>>;
+	loader: boolean;
+	setLoader: React.Dispatch<React.SetStateAction<boolean>>;
 	itemId: string;
 	setItemId: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -16,14 +20,20 @@ interface GlobalProviderProps {
 export const GlobalContextProvider: React.FC<GlobalProviderProps> = ({
 	children,
 }) => {
-	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+	const [addTaskModal, setAddtaskModal] = useState<boolean>(false);
+	const [updateTaskModal, setUpdatetaskModal] = useState<boolean>(false);
+	const [loader, setLoader] = useState<boolean>(true);
 	const [itemId, setItemId] = useState<string>("");
 
 	return (
 		<GlobalContext.Provider
 			value={{
-				isModalOpen,
-				setIsModalOpen,
+				addTaskModal,
+				setAddtaskModal,
+				updateTaskModal,
+				setUpdatetaskModal,
+				loader,
+				setLoader,
 				itemId,
 				setItemId,
 			}}

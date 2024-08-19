@@ -3,6 +3,7 @@ import UpdateIcon from "../components/Update";
 import DeleteIcon from "../components/Delete";
 import { MdFormatListBulletedAdd } from "react-icons/md";
 import { useGlobalContext } from "../context/global-context";
+import { ClockLoader } from "react-spinners";
 
 interface DataType {
 	id: string;
@@ -12,7 +13,8 @@ interface DataType {
 }
 
 export default function Settings() {
-	const { isModalOpen, setIsModalOpen, setItemId } = useGlobalContext();
+	const { addTaskModal, setAddtaskModal, setItemId, setLoader, loader } =
+		useGlobalContext();
 	const [data, setData] = useState<DataType[]>([]);
 
 	const getData = async () => {
@@ -23,6 +25,7 @@ export default function Settings() {
 			const res = await response.json();
 
 			if (res.success) {
+				setLoader(false);
 				setData(res.data);
 				getData();
 			}
@@ -44,7 +47,7 @@ export default function Settings() {
 			<div className="flex justify-between items-center mr-5 font-semibold tracking-wide">
 				<h2 className="text-black/75 text-[20px]">Settings</h2>
 				<button
-					onClick={() => setIsModalOpen(!isModalOpen)}
+					onClick={() => setAddtaskModal(!addTaskModal)}
 					className="bg-slate-800 text-slate-300 flex items-center px-4 py-[5px] rounded-md hover:bg-slate-700 transition-all"
 				>
 					<MdFormatListBulletedAdd className="mr-2" />
@@ -52,7 +55,7 @@ export default function Settings() {
 				</button>
 			</div>
 
-			<main className="mt-4 w-[1206px]">
+			<main className="mt-4 w-[1222px]">
 				<div className="bg-slate-800 w-full py-4 px-6 rounded-t-lg">
 					<ul className="flex justify-between tracking-wider font-semibold text-slate-300 text-[18px]">
 						<li className="w-[14rem]">Name_en</li>
@@ -63,18 +66,20 @@ export default function Settings() {
 				</div>
 
 				<div className="w-full p-6 h-[72vh] bg-slate-200 rounded-b-lg overflow-y-scroll no-scrollbar">
+					{loader && (
+						<div className="flex justify-center items-center h-full">
+							<ClockLoader color="#1e293b" loading={loader} />
+						</div>
+					)}
+
 					{data.map((item: DataType) => (
 						<ul
 							key={item.id}
-							className="flex items-center justify-between cursor-pointer text-slate-700 tracking-wide"
+							className="flex items-center justify-between font-semibold cursor-pointer text-slate-700 tracking-wide"
 						>
-							<li className="w-[14rem] font-medium text-[15px]">
-								{item.name_en}
-							</li>
-							<li className="w-[14rem] font-medium text-[15px]">
-								{item.name_ru}
-							</li>
-							<li className="w-[5rem]">
+							<li className="w-[14rem] mt-6 capitalize">{item.name_en}</li>
+							<li className="w-[14rem] mt-6 capitalize">{item.name_ru}</li>
+							<li className="w-[5rem] mt-6">
 								<img
 									src={`https://autoapi.dezinfeksiyatashkent.uz/api/uploads/images/${item.image_src}`}
 									alt="imgs"
@@ -82,7 +87,7 @@ export default function Settings() {
 							</li>
 							<li
 								onClick={() => setItemId(item.id)}
-								className="w-[4rem] flex items-center gap-x-4 cursor-pointer"
+								className="w-[4.6rem] mt-6 flex items-center gap-x-4 cursor-pointer"
 							>
 								<UpdateIcon />
 								<DeleteIcon itemId={item.id} onDelete={handleDelete} />

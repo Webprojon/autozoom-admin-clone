@@ -20,11 +20,6 @@ export default function Header() {
 
 	const links = [
 		{
-			to: "/dashboard",
-			icon: <IoMdHome className="size-6" />,
-			label: "Dashboard",
-		},
-		{
 			to: "/settings",
 			icon: <IoSettingsOutline className="size-5" />,
 			label: "Settings",

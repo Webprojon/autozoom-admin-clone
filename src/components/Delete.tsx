@@ -34,7 +34,7 @@ export default function DeleteIcon({ itemId, onDelete }: DeleteIconProps) {
 	return (
 		<RiDeleteBin5Fill
 			onClick={deleteItem}
-			className="size-6 text-red-500 cursor-pointer"
+			className="size-7 text-red-500 cursor-pointer"
 		/>
 	);
 }

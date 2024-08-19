@@ -1,11 +1,15 @@
 import { FaEdit } from "react-icons/fa";
-//import UpdateModal from "./update-modal";
+import { useGlobalContext } from "../context/global-context";
 
 export default function UpdateIcon() {
+	const { updateTaskModal, setUpdatetaskModal } = useGlobalContext();
+
 	return (
-		<div className="relative">
-			<FaEdit className="size-6 text-sky-600" />
-			{/*<UpdateModal />*/}
+		<div
+			onClick={() => setUpdatetaskModal(!updateTaskModal)}
+			className="relative"
+		>
+			<FaEdit className="size-7 text-sky-600" />
 		</div>
 	);
 }

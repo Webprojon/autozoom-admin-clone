@@ -3,7 +3,6 @@ import LogIn from "./components/LogIn";
 import { useEffect } from "react";
 import Header from "./components/Header";
 import Settings from "./pages/Settings";
-import Dashboard from "./pages/Dashboard";
 import Brands from "./pages/Brands";
 import Models from "./pages/Models";
 import Locations from "./pages/Locations";
@@ -11,9 +10,10 @@ import Cities from "./pages/Cities";
 import Cars from "./pages/Cars";
 import AddModal from "./components/Add";
 import { useGlobalContext } from "./context/global-context";
+import UpdateModal from "./components/Update-Modal";
 
 function App() {
-	const { isModalOpen } = useGlobalContext();
+	const { addTaskModal, updateTaskModal } = useGlobalContext();
 	const navigate = useNavigate();
 	const userToken = localStorage.getItem("loginToken");
 	const location = useLocation();
@@ -32,7 +32,6 @@ function App() {
 			{pathname ? <Header /> : null}
 			<Routes>
 				<Route path="/login" element={<LogIn />} />
-				<Route path="/dashboard" element={<Dashboard />} />
 				<Route path="/settings" element={<Settings />} />
 				<Route path="/brands" element={<Brands />} />
 				<Route path="/models" element={<Models />} />
@@ -40,7 +39,8 @@ function App() {
 				<Route path="/cities" element={<Cities />} />
 				<Route path="/cars" element={<Cars />} />
 			</Routes>
-			{isModalOpen ? <AddModal /> : null}
+			{addTaskModal ? <AddModal /> : null}
+			{updateTaskModal ? <UpdateModal /> : null}
 		</section>
 	);
 }
