@@ -1,6 +1,6 @@
 import { IoSettingsOutline } from "react-icons/io5";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { IoLogoModelS, IoMdHome } from "react-icons/io";
+import { IoLogoModelS } from "react-icons/io";
 import { FaStore } from "react-icons/fa";
 import { BiSolidCity } from "react-icons/bi";
 import { PiNotebookBold } from "react-icons/pi";
