@@ -1,9 +1,9 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import { useGlobalContext } from "../context/global-context";
+import { useGlobalContext } from "../../context/global-context";
 import toast from "react-hot-toast";
 
-export default function UpdateModal() {
-	const { updateTaskModal, setUpdatetaskModal, itemId } = useGlobalContext();
+export default function AddModal() {
+	const { addTaskModal, setAddtaskModal, setData } = useGlobalContext();
 	const [nameEn, setNameEn] = useState("");
 	const [nameRu, setNameRu] = useState("");
 	const [newImage, setNewImage] = useState<File | null>(null);
@@ -26,16 +26,19 @@ export default function UpdateModal() {
 	const addNewCategoryItem = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
-		fetch(`https://autoapi.dezinfeksiyatashkent.uz/api/categories/${itemId}`, {
-			method: "PUT",
+		fetch("https://autoapi.dezinfeksiyatashkent.uz/api/categories", {
+			method: "POST",
 			body: formdata,
 			headers: {
 				Authorization: `Bearer ${token}`,
+				//"Content-Type": "multipart/form-data",
 			},
 		})
 			.then((res) => res.json())
 			.then((data) => {
 				if (data.success) {
+					//setLoader(!loader);
+					setData((prevData) => [...prevData, data.data]);
 					toast.success(data.message);
 					handleToggleModal();
 				} else {
@@ -45,7 +48,7 @@ export default function UpdateModal() {
 	};
 
 	const handleToggleModal = () => {
-		setUpdatetaskModal(!updateTaskModal);
+		setAddtaskModal(!addTaskModal);
 	};
 
 	return (

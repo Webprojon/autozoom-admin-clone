@@ -3,7 +3,7 @@ import { RiDeleteBin5Fill } from "react-icons/ri";
 
 interface DeleteIconProps {
 	itemId: string;
-	onDelete: (id: string) => void; // Callback to update the state in the parent component
+	onDelete: (id: string) => void;
 }
 
 export default function DeleteIcon({ itemId, onDelete }: DeleteIconProps) {
@@ -14,7 +14,7 @@ export default function DeleteIcon({ itemId, onDelete }: DeleteIconProps) {
 			const response = await fetch(
 				`https://autoapi.dezinfeksiyatashkent.uz/api/categories/${itemId}`,
 				{
-					method: "DELETE",
+					method: "delete",
 					headers: {
 						Authorization: `Bearer ${token}`,
 						"Content-Type": "application/json",

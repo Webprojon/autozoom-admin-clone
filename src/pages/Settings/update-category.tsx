@@ -1,5 +1,5 @@
 import { FaEdit } from "react-icons/fa";
-import { useGlobalContext } from "../context/global-context";
+import { useGlobalContext } from "../../context/global-context";
 
 export default function UpdateIcon() {
 	const { updateTaskModal, setUpdatetaskModal } = useGlobalContext();

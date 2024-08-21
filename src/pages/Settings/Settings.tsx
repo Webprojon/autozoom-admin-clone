@@ -1,41 +1,25 @@
-import { useEffect, useState } from "react";
-import UpdateIcon from "../components/Update";
-import DeleteIcon from "../components/Delete";
+import { useEffect } from "react";
+import UpdateIcon from "./update-category";
+import DeleteIcon from "./delete-category";
 import { MdFormatListBulletedAdd } from "react-icons/md";
-import { useGlobalContext } from "../context/global-context";
-import { ClockLoader } from "react-spinners";
-
-interface DataType {
-	id: string;
-	name_en: string;
-	name_ru: string;
-	image_src: string;
-}
+import { useGlobalContext } from "../../context/global-context";
+//import { ClockLoader } from "react-spinners";
 
 export default function Settings() {
-	const { addTaskModal, setAddtaskModal, setItemId, setLoader, loader } =
+	const { addTaskModal, setAddtaskModal, setItemId, data, setData } =
 		useGlobalContext();
-	const [data, setData] = useState<DataType[]>([]);
 
-	const getData = async () => {
-		try {
-			const response = await fetch(
-				"https://autoapi.dezinfeksiyatashkent.uz/api/categories",
-			);
-			const res = await response.json();
-
-			if (res.success) {
-				setLoader(false);
-				setData(res.data);
-				getData();
-			}
-		} catch (error) {
-			console.log(error);
-		}
+	const getCategoriesData = () => {
+		fetch("https://autoapi.dezinfeksiyatashkent.uz/api/categories")
+			.then((response) => response.json())
+			.then((data) => {
+				setData(data.data);
+			})
+			.catch((error) => console.log(error));
 	};
 
 	useEffect(() => {
-		getData();
+		getCategoriesData();
 	}, []);
 
 	const handleDelete = (id: string) => {
@@ -44,7 +28,7 @@ export default function Settings() {
 
 	return (
 		<section className="ml-[18.3rem] mt-2">
-			<div className="flex justify-between items-center mr-5 font-semibold tracking-wide">
+			<div className="flex justify-between items-center mr-6 font-semibold tracking-wide">
 				<h2 className="text-black/75 text-[20px]">Settings</h2>
 				<button
 					onClick={() => setAddtaskModal(!addTaskModal)}
@@ -55,7 +39,7 @@ export default function Settings() {
 				</button>
 			</div>
 
-			<main className="mt-4 w-[1222px]">
+			<main className="mt-4 w-[98%]">
 				<div className="bg-slate-800 w-full py-4 px-6 rounded-t-lg">
 					<ul className="flex justify-between tracking-wider font-semibold text-slate-300 text-[18px]">
 						<li className="w-[14rem]">Name_en</li>
@@ -66,13 +50,13 @@ export default function Settings() {
 				</div>
 
 				<div className="w-full p-6 h-[72vh] bg-slate-200 rounded-b-lg overflow-y-scroll no-scrollbar">
-					{loader && (
+					{/*{loader && (
 						<div className="flex justify-center items-center h-full">
 							<ClockLoader color="#1e293b" loading={loader} />
 						</div>
-					)}
+					)}*/}
 
-					{data.map((item: DataType) => (
+					{data.map((item) => (
 						<ul
 							key={item.id}
 							className="flex items-center justify-between font-semibold cursor-pointer text-slate-700 tracking-wide"

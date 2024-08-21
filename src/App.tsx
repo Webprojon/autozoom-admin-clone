@@ -2,20 +2,20 @@ import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import LogIn from "./components/LogIn";
 import { useEffect } from "react";
 import Header from "./components/Header";
-import Settings from "./pages/Settings";
-import Brands from "./pages/Brands";
-import Models from "./pages/Models";
-import Locations from "./pages/Locations";
-import Cities from "./pages/Cities";
-import Cars from "./pages/Cars";
-import AddModal from "./components/Add";
+import Settings from "./pages/Settings/Settings";
+import Brands from "./pages/Brands/Brands";
+import Models from "./pages/Models/Models";
+import Locations from "./pages/Locations/Locations";
+import Cities from "./pages/Cities/Cities";
+import Cars from "./pages/Cars/Cars";
+import AddModal from "./pages/Settings/add-category";
 import { useGlobalContext } from "./context/global-context";
-import UpdateModal from "./components/Update-Modal";
+import UpdateModal from "./pages/Settings/modal-category";
 
 function App() {
 	const { addTaskModal, updateTaskModal } = useGlobalContext();
 	const navigate = useNavigate();
-	const userToken = sessionStorage.getItem("loginToken");
+	const userToken = localStorage.getItem("loginToken");
 	const location = useLocation();
 	const pathname = location.pathname !== "/login";
 
