@@ -3,17 +3,28 @@ import UpdateIcon from "./update-category";
 import DeleteIcon from "./delete-category";
 import { MdFormatListBulletedAdd } from "react-icons/md";
 import { useGlobalContext } from "../../context/global-context";
-//import { ClockLoader } from "react-spinners";
+import { ClockLoader } from "react-spinners";
+import AddModal from "./add-category";
+import UpdateModal from "./modal-category";
 
 export default function Settings() {
-	const { addTaskModal, setAddtaskModal, setItemId, data, setData } =
-		useGlobalContext();
+	const {
+		addTaskModal,
+		setAddtaskModal,
+		updateTaskModal,
+		setItemId,
+		data,
+		setData,
+		setLoader,
+		loader,
+	} = useGlobalContext();
 
 	const getCategoriesData = () => {
 		fetch("https://autoapi.dezinfeksiyatashkent.uz/api/categories")
 			.then((response) => response.json())
 			.then((data) => {
 				setData(data.data);
+				setLoader(false);
 			})
 			.catch((error) => console.log(error));
 	};
@@ -28,6 +39,8 @@ export default function Settings() {
 
 	return (
 		<section className="ml-[18.3rem] mt-2">
+			{addTaskModal ? <AddModal /> : null}
+			{updateTaskModal ? <UpdateModal /> : null}
 			<div className="flex justify-between items-center mr-6 font-semibold tracking-wide">
 				<h2 className="text-black/75 text-[20px]">Settings</h2>
 				<button
@@ -50,20 +63,20 @@ export default function Settings() {
 				</div>
 
 				<div className="w-full p-6 h-[72vh] bg-slate-200 rounded-b-lg overflow-y-scroll no-scrollbar">
-					{/*{loader && (
+					{loader && (
 						<div className="flex justify-center items-center h-full">
 							<ClockLoader color="#1e293b" loading={loader} />
 						</div>
-					)}*/}
+					)}
 
 					{data.map((item) => (
 						<ul
 							key={item.id}
-							className="flex items-center justify-between font-semibold cursor-pointer text-slate-700 tracking-wide"
+							className="flex items-center justify-between capitalize border-b py-4 border-slate-300 font-semibold cursor-pointer text-slate-700 tracking-wide"
 						>
-							<li className="w-[14rem] mt-6 capitalize">{item.name_en}</li>
-							<li className="w-[14rem] mt-6 capitalize">{item.name_ru}</li>
-							<li className="w-[5rem] mt-6">
+							<li className="w-[14rem]">{item.name_en}</li>
+							<li className="w-[14rem]">{item.name_ru}</li>
+							<li className="w-[5rem]">
 								<img
 									src={`https://autoapi.dezinfeksiyatashkent.uz/api/uploads/images/${item.image_src}`}
 									alt="imgs"
@@ -71,7 +84,7 @@ export default function Settings() {
 							</li>
 							<li
 								onClick={() => setItemId(item.id)}
-								className="w-[4.6rem] mt-6 flex items-center gap-x-4 cursor-pointer"
+								className="w-[4.6rem] flex items-center gap-x-4 cursor-pointer"
 							>
 								<UpdateIcon />
 								<DeleteIcon itemId={item.id} onDelete={handleDelete} />

@@ -5,6 +5,7 @@ interface DataType {
 	name_en: string;
 	name_ru: string;
 	image_src: string;
+	title: string;
 }
 
 export interface GlobalContextType {
@@ -12,8 +13,8 @@ export interface GlobalContextType {
 	setAddtaskModal: React.Dispatch<React.SetStateAction<boolean>>;
 	updateTaskModal: boolean;
 	setUpdatetaskModal: React.Dispatch<React.SetStateAction<boolean>>;
-	//loader: boolean;
-	//setLoader: React.Dispatch<React.SetStateAction<boolean>>;
+	loader: boolean;
+	setLoader: React.Dispatch<React.SetStateAction<boolean>>;
 	itemId: string;
 	setItemId: React.Dispatch<React.SetStateAction<string>>;
 	data: DataType[];
@@ -32,7 +33,7 @@ export const GlobalContextProvider: React.FC<GlobalProviderProps> = ({
 }) => {
 	const [addTaskModal, setAddtaskModal] = useState<boolean>(false);
 	const [updateTaskModal, setUpdatetaskModal] = useState<boolean>(false);
-	//const [loader, setLoader] = useState<boolean>(true);
+	const [loader, setLoader] = useState<boolean>(true);
 	const [itemId, setItemId] = useState<string>("");
 	const [data, setData] = useState<DataType[]>([]);
 
@@ -50,8 +51,8 @@ export const GlobalContextProvider: React.FC<GlobalProviderProps> = ({
 				setAddtaskModal,
 				updateTaskModal,
 				setUpdatetaskModal,
-				//loader,
-				//setLoader,
+				loader,
+				setLoader,
 				itemId,
 				setItemId,
 				data,

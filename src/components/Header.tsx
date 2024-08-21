@@ -5,17 +5,26 @@ import { FaStore } from "react-icons/fa";
 import { BiSolidCity } from "react-icons/bi";
 import { PiNotebookBold } from "react-icons/pi";
 import { GrMapLocation } from "react-icons/gr";
+import { useGlobalContext } from "../context/global-context";
 
 export default function Header() {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const pathname = location.pathname;
+	const { setLoader } = useGlobalContext();
 
 	const logOut = () => {
 		setTimeout(() => {
 			localStorage.removeItem("loginToken");
 			navigate("/login");
 		}, 1200);
+	};
+
+	const handleLoader = () => {
+		setLoader(true);
+		setTimeout(() => {
+			setLoader(false);
+		}, 500);
 	};
 
 	const links = [
@@ -43,7 +52,6 @@ export default function Header() {
 		{ to: "/cars", icon: <IoLogoModelS className="size-5" />, label: "Cars" },
 	];
 
-	//${isVisible ? "translate-x-0" : "-translate-x-full"}
 	return (
 		<header className="z-[999]">
 			<nav className="flex justify-between items-center px-6 bg-slate-800 h-[9vh] border-b border-gray-600 text-slate-300 font-semibold text-[20px]">
@@ -59,6 +67,7 @@ export default function Header() {
 					<Link
 						key={index}
 						to={link.to}
+						onClick={handleLoader}
 						className={`flex items-center gap-x-3 py-2 hover:text-slate-400 px-3 mx-3 rounded-md
 							${pathname === link.to ? "bg-slate-700" : ""}`}
 					>

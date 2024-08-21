@@ -4,12 +4,10 @@ import toast from "react-hot-toast";
 
 export default function AddModal() {
 	const { addTaskModal, setAddtaskModal, setData } = useGlobalContext();
-	const [nameEn, setNameEn] = useState("");
-	const [nameRu, setNameRu] = useState("");
+	const [title, setTitle] = useState("");
 	const [newImage, setNewImage] = useState<File | null>(null);
 	const formdata = new FormData();
-	formdata.append("name_en", nameEn);
-	formdata.append("name_ru", nameRu);
+	formdata.append("name_en", title);
 	if (newImage) {
 		formdata.append("images", newImage);
 	}
@@ -26,7 +24,7 @@ export default function AddModal() {
 	const addNewCategoryItem = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
-		fetch("https://autoapi.dezinfeksiyatashkent.uz/api/categories", {
+		fetch("https://autoapi.dezinfeksiyatashkent.uz/api/brands", {
 			method: "POST",
 			body: formdata,
 			headers: {
@@ -65,28 +63,15 @@ export default function AddModal() {
 					className="flex flex-col space-y-4 mt-4"
 				>
 					<div>
-						<label htmlFor="name_en" className="text-[15px]">
-							Name_en
+						<label htmlFor="brand-name" className="text-[15px]">
+							Brand Name
 						</label>
 						<input
 							required
 							type="text"
-							id="name_en"
+							id="brand-name"
 							autoComplete="off"
-							onChange={(e) => setNameEn(e.target.value)}
-							className="outline-none mt-2 border border-black/50 text-black/70 w-full py-[5px] px-4 rounded-lg"
-						/>
-					</div>
-					<div>
-						<label htmlFor="name_ru" className="text-[15px]">
-							Name_ru
-						</label>
-						<input
-							required
-							type="text"
-							id="name_ru"
-							autoComplete="off"
-							onChange={(e) => setNameRu(e.target.value)}
+							onChange={(e) => setTitle(e.target.value)}
 							className="outline-none mt-2 border border-black/50 text-black/70 w-full py-[5px] px-4 rounded-lg"
 						/>
 					</div>
