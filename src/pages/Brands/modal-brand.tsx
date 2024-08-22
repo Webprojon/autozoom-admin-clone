@@ -11,7 +11,7 @@ export default function UpdateModal() {
 	useEffect(() => {
 		const currentItem = data.find((item) => item.id === itemId);
 		if (currentItem) {
-			setTitle(currentItem.name_en);
+			setTitle(currentItem.title || "");
 		}
 	}, [itemId, data]);
 
@@ -28,7 +28,7 @@ export default function UpdateModal() {
 		e.preventDefault();
 
 		const formData = new FormData();
-		formData.append("name_en", title);
+		formData.append("title", title);
 		if (newImage) {
 			formData.append("images", newImage);
 		}
@@ -45,7 +45,7 @@ export default function UpdateModal() {
 				if (data.success) {
 					toast.success(data.message);
 					handleToggleModal();
-					refetchData();
+					refetchData("brands");
 				} else {
 					toast.error(data.message);
 				}

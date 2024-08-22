@@ -48,7 +48,7 @@ export default function UpdateModal() {
 				if (data.success) {
 					toast.success(data.message);
 					handleToggleModal();
-					refetchData();
+					refetchData("categories");
 				} else {
 					toast.error(data.message);
 				}

@@ -7,7 +7,7 @@ export default function AddModal() {
 	const [title, setTitle] = useState("");
 	const [newImage, setNewImage] = useState<File | null>(null);
 	const formdata = new FormData();
-	formdata.append("name_en", title);
+	formdata.append("title", title);
 	if (newImage) {
 		formdata.append("images", newImage);
 	}

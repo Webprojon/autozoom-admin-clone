@@ -19,7 +19,7 @@ export interface GlobalContextType {
 	setItemId: React.Dispatch<React.SetStateAction<string>>;
 	data: DataType[];
 	setData: React.Dispatch<React.SetStateAction<DataType[]>>;
-	refetchData: () => void;
+	refetchData: (category: string) => void;
 }
 
 const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
@@ -37,8 +37,8 @@ export const GlobalContextProvider: React.FC<GlobalProviderProps> = ({
 	const [itemId, setItemId] = useState<string>("");
 	const [data, setData] = useState<DataType[]>([]);
 
-	const refetchData = () => {
-		fetch("https://autoapi.dezinfeksiyatashkent.uz/api/categories")
+	const refetchData = (category: string) => {
+		fetch(`https://autoapi.dezinfeksiyatashkent.uz/api/${category}`)
 			.then((response) => response.json())
 			.then((data) => setData(data.data))
 			.catch((error) => console.error("Error fetching data:", error));

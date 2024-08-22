@@ -1,17 +1,18 @@
 import { useEffect } from "react";
-import UpdateIcon from "./update-brand";
 import DeleteIcon from "./delete-brand";
 import { MdFormatListBulletedAdd } from "react-icons/md";
 import { useGlobalContext } from "../../context/global-context";
 import { ClockLoader } from "react-spinners";
 import UpdateModal from "./modal-brand";
 import AddModal from "./add-brand";
+import { FaEdit } from "react-icons/fa";
 
 export default function Brands() {
 	const {
 		addTaskModal,
 		setAddtaskModal,
 		updateTaskModal,
+		setUpdatetaskModal,
 		setItemId,
 		data,
 		setData,
@@ -84,7 +85,15 @@ export default function Brands() {
 								onClick={() => setItemId(item.id)}
 								className="w-[4.6rem] flex items-center gap-x-4 cursor-pointer"
 							>
-								<UpdateIcon />
+								{/* Update Button */}
+								<div
+									onClick={() => setUpdatetaskModal(!updateTaskModal)}
+									className="relative"
+								>
+									<FaEdit className="size-7 text-sky-600" />
+								</div>
+
+								{/* Delete Button */}
 								<DeleteIcon itemId={item.id} onDelete={handleDelete} />
 							</li>
 						</ul>
