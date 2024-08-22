@@ -6,6 +6,9 @@ interface DataType {
 	name_ru: string;
 	image_src: string;
 	title: string;
+	name: string;
+	brand_title: string;
+	brand_id: string;
 }
 
 export interface GlobalContextType {
