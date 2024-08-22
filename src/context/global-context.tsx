@@ -9,6 +9,7 @@ interface DataType {
 	name: string;
 	brand_title: string;
 	brand_id: string;
+	text: string;
 }
 
 export interface GlobalContextType {

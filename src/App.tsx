@@ -17,7 +17,7 @@ function App() {
 
 	useEffect(() => {
 		if (userToken?.includes("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ey")) {
-			navigate("/models");
+			navigate("/locations");
 		} else {
 			navigate("/login");
 		}
