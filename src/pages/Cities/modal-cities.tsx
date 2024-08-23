@@ -73,7 +73,7 @@ export default function UpdateModal() {
 				>
 					<div>
 						<label htmlFor="country" className="text-[15px]">
-							Country
+							<span className="text-red-500 text-[17px]">*</span> Country
 						</label>
 						<input
 							required
@@ -87,7 +87,7 @@ export default function UpdateModal() {
 					</div>
 					<div>
 						<label htmlFor="cityname" className="text-[15px]">
-							City Name
+							<span className="text-red-500 text-[17px]">*</span> City Name
 						</label>
 						<input
 							required
@@ -101,7 +101,7 @@ export default function UpdateModal() {
 					</div>
 					<div>
 						<label htmlFor="upload_img" className="text-[15px]">
-							Upload Image
+							<span className="text-red-500 text-[17px]">*</span> Upload Image
 						</label>
 						<div className="relative">
 							<input

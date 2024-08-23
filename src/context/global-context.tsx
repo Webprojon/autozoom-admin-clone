@@ -10,6 +10,16 @@ interface DataType {
 	brand_title: string;
 	brand_id: string;
 	text: string;
+	category: {
+		name_en: string;
+	};
+	model: {
+		name: string;
+	};
+	color: string;
+	city: {
+		name: string;
+	};
 }
 
 export interface GlobalContextType {

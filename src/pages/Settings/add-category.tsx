@@ -66,7 +66,7 @@ export default function AddModal() {
 				>
 					<div>
 						<label htmlFor="name_en" className="text-[15px]">
-							Name_en
+							<span className="text-red-500 text-[17px]">*</span> Name_en
 						</label>
 						<input
 							required
@@ -79,7 +79,7 @@ export default function AddModal() {
 					</div>
 					<div>
 						<label htmlFor="name_ru" className="text-[15px]">
-							Name_ru
+							<span className="text-red-500 text-[17px]">*</span> Name_ru
 						</label>
 						<input
 							required
@@ -92,7 +92,7 @@ export default function AddModal() {
 					</div>
 					<div>
 						<label htmlFor="upload_img" className="text-[15px]">
-							Upload Image
+							<span className="text-red-500 text-[17px]">*</span> Upload Image
 						</label>
 						<div className="relative">
 							<input

@@ -59,7 +59,7 @@ export default function AddModal() {
 				>
 					<div>
 						<label htmlFor="brand-name" className="text-[15px]">
-							Model Name
+							<span className="text-red-500 text-[17px]">*</span> Model Name
 						</label>
 						<input
 							required
@@ -72,7 +72,7 @@ export default function AddModal() {
 					</div>
 					<div className="flex flex-col">
 						<label htmlFor="brand-name" className="text-[15px]">
-							Brand Name
+							<span className="text-red-500 text-[17px]">*</span> Brand Name
 						</label>
 						<select
 							required
