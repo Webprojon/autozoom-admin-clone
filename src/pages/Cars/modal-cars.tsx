@@ -15,7 +15,7 @@ interface DataType {
 }
 
 export default function UpdateModal() {
-	const { updateTaskModal, setUpdatetaskModal, itemId, data, refetchData } =
+	const { updateTaskModal, setUpdatetaskModal, itemId, refetchData } =
 		useGlobalContext();
 	const [categories, setCategories] = useState<DataType[]>([]);
 	const [brands, setBrands] = useState<DataType[]>([]);
@@ -58,7 +58,7 @@ export default function UpdateModal() {
 	//formdata.append("year", cityValue);
 	if (newImage) {
 		formData.append("images", newImage);
-	}	
+	}
 
 	//useEffect(() => {
 	//	const currentItem = data.find((item) => item.id === itemId);
