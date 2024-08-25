@@ -1,10 +1,16 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useGlobalContext } from "../../context/global-context";
 import toast from "react-hot-toast";
 
+interface DataType {
+	id: string;
+	title: string;
+}
+
 export default function AddModal() {
-	const { addTaskModal, setAddtaskModal, data, setData, refetchData } =
+	const { addTaskModal, setAddtaskModal, setData, refetchData } =
 		useGlobalContext();
+	const [brands, setBrands] = useState<DataType[]>([]);
 	const [modelName, setModelName] = useState("");
 	const [brandName, setBrandName] = useState("");
 
@@ -41,6 +47,15 @@ export default function AddModal() {
 	const handleToggleModal = () => {
 		setAddtaskModal(!addTaskModal);
 	};
+
+	useEffect(() => {
+		fetch("https://autoapi.dezinfeksiyatashkent.uz/api/brands")
+			.then((response) => response.json())
+			.then((data) => {
+				setBrands(data.data);
+			})
+			.catch((error) => console.log(error));
+	}, []);
 
 	return (
 		<section>
@@ -80,9 +95,9 @@ export default function AddModal() {
 							className="outline-none w-[160px] border border-black/50 text-black/70 rounded-lg py-[5px] px-4 mt-2 cursor-pointer"
 						>
 							<option>Select Brand</option>
-							{data?.map((item) => (
-								<option key={item.id} value={item.brand_id}>
-									{item.brand_title}
+							{brands?.map((item) => (
+								<option key={item.id} value={item.id}>
+									{item.title}
 								</option>
 							))}
 						</select>
