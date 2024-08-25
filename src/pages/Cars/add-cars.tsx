@@ -3,6 +3,7 @@ import { useGlobalContext } from "../../context/global-context";
 import toast from "react-hot-toast";
 import InputCars from "../../components/Input-cars";
 import SelectCars from "../../components/Select-cars";
+import ImgUploadCars from "../../components/Img-upload-cars";
 
 interface DataType {
 	id: string;
@@ -20,7 +21,10 @@ interface DataType {
 	city_id: string;
 }
 
+type SetStateType = (data: DataType[]) => void;
+
 export default function AddModal() {
+	const apiUrl = "https://autoapi.dezinfeksiyatashkent.uz/api";
 	const { addTaskModal, setAddtaskModal, setData } = useGlobalContext();
 	const [categories, setCategories] = useState<DataType[]>([]);
 	const [brands, setBrands] = useState<DataType[]>([]);
@@ -116,7 +120,7 @@ export default function AddModal() {
 	const addNewCategoryItem = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
-		fetch("https://autoapi.dezinfeksiyatashkent.uz/api/cars", {
+		fetch(`${apiUrl}/cars`, {
 			method: "POST",
 			body: formdata,
 			headers: {
@@ -139,41 +143,21 @@ export default function AddModal() {
 		setAddtaskModal(!addTaskModal);
 	};
 
+	const fetching = (whichOne: string, setState: SetStateType) => {
+		fetch(`${apiUrl}/${whichOne}`)
+			.then((response) => response.json())
+			.then((data) => {
+				setState(data.data);
+			})
+			.catch((error) => console.log(error));
+	};
+
 	useEffect(() => {
-		fetch("https://autoapi.dezinfeksiyatashkent.uz/api/categories")
-			.then((response) => response.json())
-			.then((data) => {
-				setCategories(data.data);
-			})
-			.catch((error) => console.log(error));
-
-		fetch("https://autoapi.dezinfeksiyatashkent.uz/api/brands")
-			.then((response) => response.json())
-			.then((data) => {
-				setBrands(data.data);
-			})
-			.catch((error) => console.log(error));
-
-		fetch("https://autoapi.dezinfeksiyatashkent.uz/api/models")
-			.then((response) => response.json())
-			.then((data) => {
-				setModels(data.data);
-			})
-			.catch((error) => console.log(error));
-
-		fetch("https://autoapi.dezinfeksiyatashkent.uz/api/locations")
-			.then((response) => response.json())
-			.then((data) => {
-				setLocation(data.data);
-			})
-			.catch((error) => console.log(error));
-
-		fetch("https://autoapi.dezinfeksiyatashkent.uz/api/cities")
-			.then((response) => response.json())
-			.then((data) => {
-				setCities(data.data);
-			})
-			.catch((error) => console.log(error));
+		fetching("categories", setCategories);
+		fetching("brands", setBrands);
+		fetching("models", setModels);
+		fetching("locations", setLocation);
+		fetching("cities", setCities);
 	}, []);
 
 	return (
@@ -206,7 +190,6 @@ export default function AddModal() {
 						label="Location"
 					/>
 					<SelectCars items={cities} setState={setCityValue} label="City" />
-
 					<InputCars setState={setColor} label="Color" />
 					<InputCars setState={setYear} label="Year" />
 					<InputCars setState={setSecond} label="Seconds" />
@@ -235,7 +218,6 @@ export default function AddModal() {
 							(Otd)"
 					/>
 					<InputCars setState={setPriceInUsd} label="Price in USD" />
-
 					<label className="flex flex-col cursor-pointer">
 						<span className="text-[15px] mb-2">
 							<span className="text-red-500 text-[17px]">*</span> Inclusive
@@ -248,77 +230,21 @@ export default function AddModal() {
 						<div className="relative w-11 h-6 bg-gray-400 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
 					</label>
 
-					<div>
-						<label htmlFor="uploadcarimages" className="text-[15px]">
-							<span className="text-red-500 text-[17px]">*</span> Upload car
-							images
-						</label>
-						<div className="relative">
-							<input
-								required
-								type="file"
-								id="uploadcarimages"
-								accept="image/*"
-								onChange={handleImageChange}
-								className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-							/>
-							<button
-								type="button"
-								className="flex flex-col items-center mt-2 py-5 px-8 text-[15px] font-semibold border border-dashed border-sky-800 rounded bg-white text-gray-700"
-							>
-								<span className="text-[22px]">+</span>
-								Upload
-							</button>
-						</div>
-					</div>
-
-					<div>
-						<label htmlFor="themainimage" className="text-[15px]">
-							<span className="text-red-500 text-[17px]">*</span> Upload the
-							main image
-						</label>
-						<div className="relative">
-							<input
-								required
-								type="file"
-								id="themainimage"
-								accept="image/*"
-								onChange={handleImageMain}
-								className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-							/>
-							<button
-								type="button"
-								className="flex flex-col items-center mt-2 py-5 px-8 text-[15px] font-semibold border border-dashed border-sky-800 rounded bg-white text-gray-700"
-							>
-								<span className="text-[22px]">+</span>
-								Upload
-							</button>
-						</div>
-					</div>
-
-					<div>
-						<label htmlFor="themainimage" className="text-[15px]">
-							<span className="text-red-500 text-[17px]">*</span> Upload the
-							cover image
-						</label>
-						<div className="relative">
-							<input
-								required
-								type="file"
-								id="themainimage"
-								accept="image/*"
-								onChange={handleImageCover}
-								className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-							/>
-							<button
-								type="button"
-								className="flex flex-col items-center mt-2 py-5 px-8 text-[15px] font-semibold border border-dashed border-sky-800 rounded bg-white text-gray-700"
-							>
-								<span className="text-[22px]">+</span>
-								Upload
-							</button>
-						</div>
-					</div>
+					<ImgUploadCars
+						handleUploadImage={handleImageChange}
+						label="Upload car
+							images"
+					/>
+					<ImgUploadCars
+						handleUploadImage={handleImageMain}
+						label="Upload the
+							main image"
+					/>
+					<ImgUploadCars
+						handleUploadImage={handleImageCover}
+						label="Upload the
+							cover image"
+					/>
 
 					<div className="space-x-4 self-end cursor-pointer text-[17px] transition-all">
 						<button
