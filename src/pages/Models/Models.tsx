@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import DeleteIcon from "./delete-model";
 import { MdFormatListBulletedAdd } from "react-icons/md";
 import { useGlobalContext } from "../../context/global-context";
 import { ClockLoader } from "react-spinners";
 import UpdateModal from "./modal-model";
 import AddModal from "./add-model";
 import { FaEdit } from "react-icons/fa";
+import DeleteIcon from "../../components/Delete";
 
 export default function Brands() {
 	const {
@@ -89,7 +89,11 @@ export default function Brands() {
 								</div>
 
 								{/* Delete Button */}
-								<DeleteIcon itemId={item.id} onDelete={handleDelete} />
+								<DeleteIcon
+									whichOne="models"
+									itemId={item.id}
+									onDelete={handleDelete}
+								/>
 							</li>
 						</ul>
 					))}

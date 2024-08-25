@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import DeleteIcon from "./delete-brand";
 import { MdFormatListBulletedAdd } from "react-icons/md";
 import { useGlobalContext } from "../../context/global-context";
 import { ClockLoader } from "react-spinners";
 import UpdateModal from "./modal-brand";
 import AddModal from "./add-brand";
 import { FaEdit } from "react-icons/fa";
+import DeleteIcon from "../../components/Delete";
 
 export default function Brands() {
 	const {
@@ -92,9 +92,12 @@ export default function Brands() {
 								>
 									<FaEdit className="size-7 text-sky-600" />
 								</div>
-
 								{/* Delete Button */}
-								<DeleteIcon itemId={item.id} onDelete={handleDelete} />
+								<DeleteIcon
+									whichOne="brands"
+									itemId={item.id}
+									onDelete={handleDelete}
+								/>
 							</li>
 						</ul>
 					))}

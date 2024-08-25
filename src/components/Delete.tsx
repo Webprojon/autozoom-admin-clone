@@ -2,17 +2,22 @@ import toast from "react-hot-toast";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 
 interface DeleteIconProps {
+	whichOne: string;
 	itemId: string;
 	onDelete: (id: string) => void;
 }
 
-export default function DeleteIcon({ itemId, onDelete }: DeleteIconProps) {
+export default function DeleteIcon({
+	whichOne,
+	itemId,
+	onDelete,
+}: DeleteIconProps) {
 	const token = localStorage.getItem("loginToken");
 
 	const deleteItem = async () => {
 		try {
 			const response = await fetch(
-				`https://autoapi.dezinfeksiyatashkent.uz/api/categories/${itemId}`,
+				`https://autoapi.dezinfeksiyatashkent.uz/api/${whichOne}/${itemId}`,
 				{
 					method: "delete",
 					headers: {

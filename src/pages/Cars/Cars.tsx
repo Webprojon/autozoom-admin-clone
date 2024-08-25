@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import DeleteIcon from "../Cars/delete-cars";
 import { MdFormatListBulletedAdd } from "react-icons/md";
 import { useGlobalContext } from "../../context/global-context";
 import { ClockLoader } from "react-spinners";
 import AddModal from "../Cars/add-cars";
 import UpdateModal from "../Cars/modal-cars";
 import { FaEdit } from "react-icons/fa";
+import DeleteIcon from "../../components/Delete";
 
 interface CarsDataType {
 	id: string;
@@ -106,7 +106,11 @@ export default function Cars() {
 								</div>
 
 								{/* Delete Button */}
-								<DeleteIcon itemId={item.id} onDelete={handleDelete} />
+								<DeleteIcon
+									whichOne="cars"
+									itemId={item.id}
+									onDelete={handleDelete}
+								/>
 							</li>
 						</ul>
 					))}

@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import DeleteIcon from "./delete-location";
 import { MdFormatListBulletedAdd } from "react-icons/md";
 import { useGlobalContext } from "../../context/global-context";
 import { ClockLoader } from "react-spinners";
 import AddModal from "./add-location";
 import UpdateModal from "./modal-location";
 import { FaEdit } from "react-icons/fa";
+import DeleteIcon from "../../components/Delete";
 
 export default function Locations() {
 	const {
@@ -96,7 +96,11 @@ export default function Locations() {
 								</div>
 
 								{/* Delete Button */}
-								<DeleteIcon itemId={item.id} onDelete={handleDelete} />
+								<DeleteIcon
+									whichOne="locations"
+									itemId={item.id}
+									onDelete={handleDelete}
+								/>
 							</li>
 						</ul>
 					))}
