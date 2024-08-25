@@ -33,7 +33,6 @@ export default function AddModal() {
 					handleToggleModal();
 					refetchData("models");
 				} else {
-					console.log(data.message);
 					toast.error(data.message);
 				}
 			});

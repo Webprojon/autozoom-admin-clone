@@ -84,7 +84,7 @@ export default function Cars() {
 						</div>
 					)}
 
-					{carsData.map((item) => (
+					{carsData?.map((item) => (
 						<ul
 							key={item.id}
 							className="flex items-center justify-between capitalize border-b py-4 border-slate-300 font-semibold cursor-pointer text-slate-700 tracking-wide"
