@@ -16,6 +16,7 @@ export default function UpdateModal() {
 		if (currentItem) {
 			setNameEn(currentItem.name_en);
 			setNameRu(currentItem.name_ru);
+			setNewImage(currentItem.image_src);
 		}
 	}, [itemId, data]);
 
@@ -78,6 +79,7 @@ export default function UpdateModal() {
 
 					<ImgUploadComponent
 						handleUploadImage={handleImageChange}
+						//value={newImage}
 						label="Upload Image"
 					/>
 

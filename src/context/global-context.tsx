@@ -1,10 +1,16 @@
-import React, { createContext, useState, ReactNode, useContext } from "react";
+import React, {
+	createContext,
+	useState,
+	ReactNode,
+	useContext,
+	SetStateAction,
+} from "react";
 
 interface DataType {
 	id: string;
 	name_en: string;
 	name_ru: string;
-	image_src: string;
+	image_src: SetStateAction<File | null>;
 	title: string;
 	name: string;
 	brand_title: string;

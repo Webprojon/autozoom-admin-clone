@@ -14,6 +14,7 @@ export default function UpdateModal() {
 		const currentItem = data.find((item) => item.id === itemId);
 		if (currentItem) {
 			setTitle(currentItem.title || "");
+			setNewImage(currentItem.image_src);
 		}
 	}, [itemId, data]);
 
