@@ -5,7 +5,7 @@ interface ImgUploadCarsProps {
 	label: string;
 }
 
-export default function ImgUploadCars({
+export default function ImgUploadComponent({
 	handleUploadImage,
 	label,
 }: ImgUploadCarsProps) {

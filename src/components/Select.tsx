@@ -16,13 +16,15 @@ interface DataType {
 
 interface SelectTypeProps {
 	setState: React.Dispatch<React.SetStateAction<string>>;
+	value: string;
 	label: string;
 	items: DataType[];
 }
 
-export default function SelectCars({
+export default function SelectComponent({
 	items,
 	setState,
+	value,
 	label,
 }: SelectTypeProps) {
 	return (
@@ -33,6 +35,7 @@ export default function SelectCars({
 			<select
 				required
 				id={label}
+				value={value}
 				onChange={(e) => setState(e.target.value)}
 				className="outline-none border border-black/50 text-black/40 rounded-lg text-[15px] py-1 px-2 mt-1 cursor-pointer"
 			>

@@ -1,6 +1,8 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useGlobalContext } from "../../context/global-context";
+import InputComponent from "../../components/Input";
+import ImgUploadComponent from "../../components/Img-Upload";
 
 export default function UpdateModal() {
 	const { updateTaskModal, setUpdatetaskModal, itemId, data, refetchData } =
@@ -71,54 +73,14 @@ export default function UpdateModal() {
 					onSubmit={updateCategoryItem}
 					className="flex flex-col space-y-4 mt-4"
 				>
-					<div>
-						<label htmlFor="name_en" className="text-[15px]">
-							<span className="text-red-500 text-[17px]">*</span> Name_en
-						</label>
-						<input
-							required
-							type="text"
-							id="name_en"
-							autoComplete="off"
-							value={nameEn}
-							onChange={(e) => setNameEn(e.target.value)}
-							className="outline-none mt-2 border border-black/50 text-black/70 w-full py-[5px] px-4 rounded-lg"
-						/>
-					</div>
-					<div>
-						<label htmlFor="name_ru" className="text-[15px]">
-							<span className="text-red-500 text-[17px]">*</span> Name_ru
-						</label>
-						<input
-							required
-							type="text"
-							id="name_ru"
-							autoComplete="off"
-							value={nameRu}
-							onChange={(e) => setNameRu(e.target.value)}
-							className="outline-none mt-2 border border-black/50 text-black/70 w-full py-[5px] px-4 rounded-lg"
-						/>
-					</div>
-					<div>
-						<label htmlFor="upload_img" className="text-[15px]">
-							<span className="text-red-500 text-[17px]">*</span> Upload Image
-						</label>
-						<div className="relative">
-							<input
-								type="file"
-								id="upload_img"
-								accept="image/*"
-								onChange={handleImageChange}
-								className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-							/>
-							<button
-								type="button"
-								className="mt-2 py-6 px-8 text-[15px] font-semibold border border-dashed border-sky-800 rounded bg-white text-gray-700"
-							>
-								Upload
-							</button>
-						</div>
-					</div>
+					<InputComponent setState={setNameEn} value={nameEn} label="Name_en" />
+					<InputComponent setState={setNameRu} value={nameRu} label="Name_ru" />
+
+					<ImgUploadComponent
+						handleUploadImage={handleImageChange}
+						label="Upload Image"
+					/>
+
 					<div className="space-x-4 self-end cursor-pointer text-[17px] transition-all">
 						<button
 							onClick={handleToggleModal}

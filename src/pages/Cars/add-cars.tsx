@@ -1,9 +1,9 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useGlobalContext } from "../../context/global-context";
 import toast from "react-hot-toast";
-import InputCars from "../../components/Input-cars";
-import SelectCars from "../../components/Select-cars";
-import ImgUploadCars from "../../components/Img-upload-cars";
+import InputComponent from "../../components/Input";
+import SelectComponent from "../../components/Select";
+import ImgUploadComponent from "../../components/Img-Upload";
 
 interface DataType {
 	id: string;
@@ -56,7 +56,7 @@ export default function AddModal() {
 	const [priceInAedSale, setPriceInAedSale] = useState("");
 	const [priceInUsd, setPriceInUsd] = useState("");
 	const [priceInUsdSale, setPriceInUsdSale] = useState("");
-	const [seconds, setSecond] = useState("");
+	const [seconds, setSeconds] = useState("");
 	const [transmission, setTransmission] = useState("");
 	const [year, setYear] = useState("");
 
@@ -177,47 +177,105 @@ export default function AddModal() {
 					onSubmit={addNewCategoryItem}
 					className="flex flex-col space-y-4 mt-4"
 				>
-					<SelectCars
+					<SelectComponent
 						items={categories}
 						setState={setCategoryValue}
+						value={categoryValue}
 						label="Category"
 					/>
-					<SelectCars items={brands} setState={setBrandValue} label="Brand" />
-					<SelectCars items={models} setState={setModelValue} label="Model" />
-					<SelectCars
+					<SelectComponent
+						items={brands}
+						setState={setBrandValue}
+						value={brandValue}
+						label="Brand"
+					/>
+					<SelectComponent
+						items={models}
+						setState={setModelValue}
+						value={modelValue}
+						label="Model"
+					/>
+					<SelectComponent
 						items={location}
 						setState={setLocationValue}
+						value={locationValue}
 						label="Location"
 					/>
-					<SelectCars items={cities} setState={setCityValue} label="City" />
-					<InputCars setState={setColor} label="Color" />
-					<InputCars setState={setYear} label="Year" />
-					<InputCars setState={setSecond} label="Seconds" />
-					<InputCars setState={setMaxSpeed} label="Speed" />
-					<InputCars setState={setMaxPeople} label="Max People" />
-					<InputCars setState={setMotor} label="Motor" />
-					<InputCars setState={setTransmission} label="Transmission" />
-					<InputCars setState={setDriveSide} label="Drive Side" />
-					<InputCars setState={setPetrol} label="Fuel" />
-					<InputCars setState={setLimitPerDay} label="Limit Per Day" />
-					<InputCars setState={setDeposit} label="Deposit" />
-					<InputCars
+					<SelectComponent
+						items={cities}
+						setState={setCityValue}
+						value={cityValue}
+						label="City"
+					/>
+
+					<InputComponent setState={setColor} value={color} label="Color" />
+					<InputComponent setState={setYear} value={year} label="Year" />
+					<InputComponent
+						setState={setSeconds}
+						value={seconds}
+						label="Seconds"
+					/>
+					<InputComponent
+						setState={setMaxSpeed}
+						value={maxSpeed}
+						label="Speed"
+					/>
+					<InputComponent
+						setState={setMaxPeople}
+						value={maxPeople}
+						label="Max People"
+					/>
+					<InputComponent setState={setMotor} value={motor} label="Motor" />
+					<InputComponent
+						setState={setTransmission}
+						value={transmission}
+						label="Transmission"
+					/>
+					<InputComponent
+						setState={setDriveSide}
+						value={driveSide}
+						label="Drive Side"
+					/>
+					<InputComponent setState={setPetrol} value={petrol} label="Fuel" />
+					<InputComponent
+						setState={setLimitPerDay}
+						value={limitPerDay}
+						label="Limit Per Day"
+					/>
+					<InputComponent
+						setState={setDeposit}
+						value={deposit}
+						label="Deposit"
+					/>
+					<InputComponent
 						setState={setPremiumProtection}
+						value={premiumProtection}
 						label="Premium
 							Protection Price"
 					/>
-					<InputCars setState={setPriceInAed} label="Price in AED" />
-					<InputCars
+					<InputComponent
+						setState={setPriceInAed}
+						value={priceInAed}
+						label="Price in AED"
+					/>
+					<InputComponent
 						setState={setPriceInUsdSale}
+						value={priceInUsdSale}
 						label="Price in
 							USD (Otd)"
 					/>
-					<InputCars
+					<InputComponent
 						setState={setPriceInAedSale}
+						value={priceInAedSale}
 						label="Price in AED
 							(Otd)"
 					/>
-					<InputCars setState={setPriceInUsd} label="Price in USD" />
+					<InputComponent
+						setState={setPriceInUsd}
+						value={priceInUsd}
+						label="Price in USD"
+					/>
+
 					<label className="flex flex-col cursor-pointer">
 						<span className="text-[15px] mb-2">
 							<span className="text-red-500 text-[17px]">*</span> Inclusive
@@ -230,17 +288,17 @@ export default function AddModal() {
 						<div className="relative w-11 h-6 bg-gray-400 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
 					</label>
 
-					<ImgUploadCars
+					<ImgUploadComponent
 						handleUploadImage={handleImageChange}
 						label="Upload car
 							images"
 					/>
-					<ImgUploadCars
+					<ImgUploadComponent
 						handleUploadImage={handleImageMain}
 						label="Upload the
 							main image"
 					/>
-					<ImgUploadCars
+					<ImgUploadComponent
 						handleUploadImage={handleImageCover}
 						label="Upload the
 							cover image"

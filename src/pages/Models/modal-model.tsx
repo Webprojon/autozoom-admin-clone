@@ -1,10 +1,23 @@
 import { FormEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useGlobalContext } from "../../context/global-context";
+import InputComponent from "../../components/Input";
+import SelectComponent from "../../components/Select";
 
 interface DataType {
 	id: string;
+	name_en: string;
+	name_ru: string;
+	image_src: string;
 	title: string;
+	name: string;
+	brand_title: string;
+	text: string;
+	category_id: string;
+	brand_id: string;
+	model_id: string;
+	location_id: string;
+	city_id: string;
 }
 
 export default function UpdateModal() {
@@ -75,38 +88,19 @@ export default function UpdateModal() {
 					onSubmit={updateCategoryItem}
 					className="flex flex-col space-y-4 mt-4"
 				>
-					<div>
-						<label htmlFor="brand-name" className="text-[15px]">
-							<span className="text-red-500 text-[17px]">*</span> Model Name
-						</label>
-						<input
-							required
-							type="text"
-							id="brand-name"
-							autoComplete="off"
-							value={modelName}
-							onChange={(e) => setModelName(e.target.value)}
-							className="outline-none mt-2 border border-black/50 text-black/70 w-full py-[5px] px-4 rounded-lg"
-						/>
-					</div>
-					<div className="flex flex-col">
-						<label htmlFor="brand-name" className="text-[15px]">
-							<span className="text-red-500 text-[17px]">*</span> Brand Name
-						</label>
-						<select
-							required
-							id="brand-name"
+					<InputComponent
+						setState={setModelName}
+						value={modelName}
+						label="Model Name"
+					/>
+
+					<div className="w-[170px]">
+						<SelectComponent
+							items={brands}
+							setState={setBrandName}
 							value={brandName}
-							onChange={(e) => setBrandName(e.target.value)}
-							className="outline-none w-[160px] border border-black/50 text-black/70 rounded-lg py-[5px] px-4 mt-2 cursor-pointer"
-						>
-							<option>Select Brand</option>
-							{brands?.map((item) => (
-								<option key={item.id} value={item.id}>
-									{item.title}
-								</option>
-							))}
-						</select>
+							label="Brand Name"
+						/>
 					</div>
 
 					<div className="space-x-4 self-end cursor-pointer text-[17px] transition-all">
