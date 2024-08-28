@@ -25,7 +25,8 @@ type SetStateType = (data: DataType[]) => void;
 
 export default function AddModal() {
 	const apiUrl = "https://autoapi.dezinfeksiyatashkent.uz/api";
-	const { addTaskModal, setAddtaskModal, setData } = useGlobalContext();
+	const { addTaskModal, setAddtaskModal, setData, refetchData } =
+		useGlobalContext();
 	const [categories, setCategories] = useState<DataType[]>([]);
 	const [brands, setBrands] = useState<DataType[]>([]);
 	const [models, setModels] = useState<DataType[]>([]);
@@ -133,6 +134,7 @@ export default function AddModal() {
 					setData((prevData) => [...prevData, data.data]);
 					toast.success(data.message);
 					handleToggleModal();
+					refetchData("cars");
 				} else {
 					toast.error(data.message);
 				}
