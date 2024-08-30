@@ -8,6 +8,7 @@ import { FaEdit } from "react-icons/fa";
 import DeleteIcon from "../../components/delete";
 
 export default function Brands() {
+	// Use context
 	const {
 		data,
 		loader,
@@ -20,7 +21,8 @@ export default function Brands() {
 		setUpdatetaskModal,
 	} = useGlobalContext();
 
-	const getCategoriesData = () => {
+	// Fetch main data
+	const getModelsData = () => {
 		fetch("https://autoapi.dezinfeksiyatashkent.uz/api/models")
 			.then((response) => response.json())
 			.then((data) => {
@@ -30,10 +32,12 @@ export default function Brands() {
 			.catch((error) => console.log(error));
 	};
 
+	// Load data
 	useEffect(() => {
-		getCategoriesData();
+		getModelsData();
 	}, []);
 
+	// Define Id to delete
 	const handleDelete = (id: string) => {
 		setData((prevData) => prevData.filter((item) => item.id !== id));
 	};

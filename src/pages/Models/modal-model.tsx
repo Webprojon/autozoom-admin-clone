@@ -1,9 +1,9 @@
 import { FormEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useGlobalContext } from "../../context/global-context";
-import InputComponent from "../../components/input";
-import SelectComponent from "../../components/select";
 import ModalButtons from "../../components/modal-buttons";
+import InputComponent from "../../components/inputs";
+import SelectComponent from "../../components/selects";
 
 interface DataType {
 	id: string;
@@ -22,12 +22,22 @@ interface DataType {
 }
 
 export default function UpdateModal() {
+	// Use Context
 	const { updateTaskModal, setUpdatetaskModal, itemId, data, refetchData } =
+	
 		useGlobalContext();
+
+	// New states
 	const [brands, setBrands] = useState<DataType[]>([]);
 	const [modelName, setModelName] = useState("");
 	const [brandName, setBrandName] = useState("");
 
+	// New form data
+	const formData = new FormData();
+	formData.append("name", modelName);
+	formData.append("brand_id", brandName);
+
+	// Get old data when modal open
 	useEffect(() => {
 		const currentItem = data.find((item) => item.id === itemId);
 		if (currentItem) {
@@ -36,14 +46,10 @@ export default function UpdateModal() {
 		}
 	}, [itemId, data]);
 
+	// Fetch main data
 	const token = localStorage.getItem("loginToken");
-
 	const updateCategoryItem = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-
-		const formData = new FormData();
-		formData.append("name", modelName);
-		formData.append("brand_id", brandName);
 
 		fetch(`https://autoapi.dezinfeksiyatashkent.uz/api/models/${itemId}`, {
 			method: "PUT",
@@ -64,10 +70,12 @@ export default function UpdateModal() {
 			});
 	};
 
+	// Toggle modal open or close
 	const handleToggleModal = () => {
 		setUpdatetaskModal(!updateTaskModal);
 	};
 
+	// Get data value for Select
 	useEffect(() => {
 		fetch("https://autoapi.dezinfeksiyatashkent.uz/api/brands")
 			.then((response) => response.json())

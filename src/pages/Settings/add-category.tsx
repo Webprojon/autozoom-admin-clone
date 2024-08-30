@@ -1,22 +1,28 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useGlobalContext } from "../../context/global-context";
 import toast from "react-hot-toast";
-import InputComponent from "../../components/input";
 import ImgUploadComponent from "../../components/img-upload";
 import ModalButtons from "../../components/modal-buttons";
+import InputComponent from "../../components/inputs";
 
 export default function AddModal() {
+	// Use Context
 	const { addTaskModal, setAddtaskModal, setData } = useGlobalContext();
+	
+	// New states
 	const [nameEn, setNameEn] = useState("");
 	const [nameRu, setNameRu] = useState("");
 	const [newImage, setNewImage] = useState<File | null>(null);
-	const formdata = new FormData();
-	formdata.append("name_en", nameEn);
-	formdata.append("name_ru", nameRu);
+
+	// New form data
+	const formData = new FormData();
+	formData.append("name_en", nameEn);
+	formData.append("name_ru", nameRu);
 	if (newImage) {
-		formdata.append("images", newImage);
+		formData.append("images", newImage);
 	}
 
+	// Get last uploaded img
 	const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
 		if (file) {
@@ -24,14 +30,14 @@ export default function AddModal() {
 		}
 	};
 
+	// Fetch main data
 	const token = localStorage.getItem("loginToken");
-
 	const addNewCategoryItem = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		fetch("https://autoapi.dezinfeksiyatashkent.uz/api/categories", {
 			method: "POST",
-			body: formdata,
+			body: formData,
 			headers: {
 				Authorization: `Bearer ${token}`,
 				//"Content-Type": "multipart/form-data",
@@ -49,6 +55,7 @@ export default function AddModal() {
 			});
 	};
 
+	// Toggle modal open or close
 	const handleToggleModal = () => {
 		setAddtaskModal(!addTaskModal);
 	};

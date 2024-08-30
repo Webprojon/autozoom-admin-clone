@@ -1,9 +1,9 @@
 import { FormEvent, useEffect, useState } from "react";
 import { useGlobalContext } from "../../context/global-context";
 import toast from "react-hot-toast";
-import InputComponent from "../../components/input";
-import SelectComponent from "../../components/select";
 import ModalButtons from "../../components/modal-buttons";
+import InputComponent from "../../components/inputs";
+import SelectComponent from "../../components/selects";
 
 interface DataType {
 	id: string;
@@ -22,27 +22,30 @@ interface DataType {
 }
 
 export default function AddModal() {
+	// Use Context
 	const { addTaskModal, setAddtaskModal, setData, refetchData } =
+	
 		useGlobalContext();
+	// New states
 	const [brands, setBrands] = useState<DataType[]>([]);
 	const [modelName, setModelName] = useState("");
 	const [brandName, setBrandName] = useState("");
 
-	const token = localStorage.getItem("loginToken");
+	// New form data
+	const formData = new FormData();
+	formData.append("name", modelName);
+	formData.append("brand_id", brandName);
 
+	// Fetch main data
+	const token = localStorage.getItem("loginToken");
 	const addNewCategoryItem = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
-		const formdata = new FormData();
-		formdata.append("name", modelName);
-		formdata.append("brand_id", brandName);
-
 		fetch("https://autoapi.dezinfeksiyatashkent.uz/api/models", {
 			method: "POST",
-			body: formdata,
+			body: formData,
 			headers: {
 				Authorization: `Bearer ${token}`,
-				//"Content-Type": "multipart/form-data",
 			},
 		})
 			.then((res) => res.json())
@@ -58,10 +61,12 @@ export default function AddModal() {
 			});
 	};
 
+	// Toggle modal open or close
 	const handleToggleModal = () => {
 		setAddtaskModal(!addTaskModal);
 	};
 
+	// Get data value for Select
 	useEffect(() => {
 		fetch("https://autoapi.dezinfeksiyatashkent.uz/api/brands")
 			.then((response) => response.json())

@@ -1,17 +1,29 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useGlobalContext } from "../../context/global-context";
-import InputComponent from "../../components/input";
 import ImgUploadComponent from "../../components/img-upload";
 import ModalButtons from "../../components/modal-buttons";
+import InputComponent from "../../components/inputs";
 
 export default function UpdateModal() {
+	// Use context
 	const { updateTaskModal, setUpdatetaskModal, itemId, data, refetchData } =
 		useGlobalContext();
+
+	// New states
 	const [country, setCountry] = useState("");
 	const [cityName, setCityName] = useState("");
 	const [newImage, setNewImage] = useState<File | null>(null);
 
+	// New form data
+	const formData = new FormData();
+	formData.append("name", country);
+	formData.append("text", cityName);
+	if (newImage) {
+		formData.append("images", newImage);
+	}
+
+	// Get old data when modal open
 	useEffect(() => {
 		const currentItem = data.find((item) => item.id === itemId);
 		if (currentItem) {
@@ -20,6 +32,7 @@ export default function UpdateModal() {
 		}
 	}, [itemId, data]);
 
+	// Get last uploaded img
 	const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
 		if (file) {
@@ -27,17 +40,10 @@ export default function UpdateModal() {
 		}
 	};
 
+	// Fetch main data
 	const token = localStorage.getItem("loginToken");
-
 	const updateCategoryItem = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-
-		const formData = new FormData();
-		formData.append("name", country);
-		formData.append("text", cityName);
-		if (newImage) {
-			formData.append("images", newImage);
-		}
 
 		fetch(`https://autoapi.dezinfeksiyatashkent.uz/api/cities/${itemId}`, {
 			method: "PUT",
@@ -58,6 +64,7 @@ export default function UpdateModal() {
 			});
 	};
 
+	// Toggle modal open or close
 	const handleToggleModal = () => {
 		setUpdatetaskModal(!updateTaskModal);
 	};

@@ -8,19 +8,21 @@ import { FaEdit } from "react-icons/fa";
 import DeleteIcon from "../../components/delete";
 
 export default function Locations() {
+	// Use context
 	const {
-		addTaskModal,
-		setAddtaskModal,
-		updateTaskModal,
-		setUpdatetaskModal,
-		setItemId,
 		data,
+		loader,
 		setData,
 		setLoader,
-		loader,
+		setItemId,
+		addTaskModal,
+		updateTaskModal,
+		setAddtaskModal,
+		setUpdatetaskModal,
 	} = useGlobalContext();
 
-	const getCategoriesData = () => {
+	// Fetch main data
+	const getLocationsData = () => {
 		fetch("https://autoapi.dezinfeksiyatashkent.uz/api/locations")
 			.then((response) => response.json())
 			.then((data) => {
@@ -30,10 +32,12 @@ export default function Locations() {
 			.catch((error) => console.log(error));
 	};
 
+	// Load data
 	useEffect(() => {
-		getCategoriesData();
+		getLocationsData();
 	}, []);
 
+	// Define Id to delete
 	const handleDelete = (id: string) => {
 		setData((prevData) => prevData.filter((item) => item.id !== id));
 	};

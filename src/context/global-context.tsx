@@ -67,6 +67,7 @@ interface GlobalProviderProps {
 export const GlobalContextProvider: React.FC<GlobalProviderProps> = ({
 	children,
 }) => {
+	// New states
 	const [addTaskModal, setAddtaskModal] = useState<boolean>(false);
 	const [updateTaskModal, setUpdatetaskModal] = useState<boolean>(false);
 	const [loader, setLoader] = useState<boolean>(true);
@@ -74,6 +75,7 @@ export const GlobalContextProvider: React.FC<GlobalProviderProps> = ({
 	const [data, setData] = useState<DataType[]>([]);
 	const [carsData, setCarsData] = useState<CarsDataType[]>([]);
 
+	// Refetch data when new data added
 	const refetchData = (category: string) => {
 		fetch(`https://autoapi.dezinfeksiyatashkent.uz/api/${category}`)
 			.then((response) => response.json())

@@ -1,10 +1,10 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useGlobalContext } from "../../context/global-context";
-import SelectComponent from "../../components/select";
-import InputComponent from "../../components/input";
 import ImgUploadComponent from "../../components/img-upload";
 import ModalButtons from "../../components/modal-buttons";
+import SelectComponent from "../../components/selects";
+import InputComponent from "../../components/inputs";
 
 interface DataType {
 	id: string;
@@ -25,25 +25,27 @@ interface DataType {
 type SetStateType = (data: DataType[]) => void;
 
 export default function UpdateModal() {
+	// Api url
 	const apiUrl = "https://autoapi.dezinfeksiyatashkent.uz/api";
+
+	// Use context
 	const { updateTaskModal, setUpdatetaskModal, setData, itemId, refetchData } =
 		useGlobalContext();
+
+	// New states
 	const [categories, setCategories] = useState<DataType[]>([]);
 	const [brands, setBrands] = useState<DataType[]>([]);
 	const [models, setModels] = useState<DataType[]>([]);
 	const [location, setLocation] = useState<DataType[]>([]);
 	const [cities, setCities] = useState<DataType[]>([]);
-
 	const [categoryValue, setCategoryValue] = useState("");
 	const [brandValue, setBrandValue] = useState("");
 	const [modelValue, setModelValue] = useState("");
 	const [locationValue, setLocationValue] = useState("");
 	const [cityValue, setCityValue] = useState("");
-
 	const [newImage, setNewImage] = useState<File | null>(null);
 	const [imageCover, setImageCover] = useState<File | null>(null);
 	const [imageMain, setImageMain] = useState<File | null>(null);
-
 	const [color, setColor] = useState("");
 	const [deposit, setDeposit] = useState("");
 	const [driveSide, setDriveSide] = useState("");
@@ -62,7 +64,7 @@ export default function UpdateModal() {
 	const [transmission, setTransmission] = useState("");
 	const [year, setYear] = useState("");
 
-	// FormData
+	// New form data
 	const formdata = new FormData();
 	formdata.append("category_id", categoryValue);
 	formdata.append("brand_id", brandValue);
@@ -96,6 +98,7 @@ export default function UpdateModal() {
 		formdata.append("images", imageMain);
 	}
 
+	// Get last uploaded img
 	const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
 		if (file) {
@@ -103,6 +106,7 @@ export default function UpdateModal() {
 		}
 	};
 
+	// Get last uploaded img
 	const handleImageCover = (e: ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
 		if (file) {
@@ -110,14 +114,16 @@ export default function UpdateModal() {
 		}
 	};
 
+	// Get last uploaded img
 	const handleImageMain = (e: ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
 		if (file) {
 			setImageMain(file);
 		}
 	};
-	const token = localStorage.getItem("loginToken");
 
+	// Fetch main data
+	const token = localStorage.getItem("loginToken");
 	const updateCategoryItem = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
@@ -141,10 +147,7 @@ export default function UpdateModal() {
 			});
 	};
 
-	const handleToggleModal = () => {
-		setUpdatetaskModal(!updateTaskModal);
-	};
-
+	// Fetch data value for selects
 	const fetching = (whichOne: string, setState: SetStateType) => {
 		fetch(`${apiUrl}/${whichOne}`)
 			.then((response) => response.json())
@@ -161,6 +164,11 @@ export default function UpdateModal() {
 		fetching("locations", setLocation);
 		fetching("cities", setCities);
 	}, []);
+
+	// Toggle modal open or close
+	const handleToggleModal = () => {
+		setUpdatetaskModal(!updateTaskModal);
+	};
 
 	return (
 		<section>

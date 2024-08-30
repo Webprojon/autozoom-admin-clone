@@ -8,19 +8,21 @@ import { FaEdit } from "react-icons/fa";
 import DeleteIcon from "../../components/delete";
 
 export default function Cars() {
+	// Use context
 	const {
+		loader,
+		carsData,
+		setLoader,
+		setItemId,
+		setCarsData,
 		addTaskModal,
 		setAddtaskModal,
 		updateTaskModal,
 		setUpdatetaskModal,
-		setItemId,
-		setLoader,
-		carsData,
-		setCarsData,
-		loader,
 	} = useGlobalContext();
 
-	const getCategoriesData = () => {
+	// Fetch main data
+	const getCarsData = () => {
 		fetch("https://autoapi.dezinfeksiyatashkent.uz/api/cars")
 			.then((response) => response.json())
 			.then((data) => {
@@ -30,10 +32,12 @@ export default function Cars() {
 			.catch((error) => console.log(error));
 	};
 
+	// Load data
 	useEffect(() => {
-		getCategoriesData();
+		getCarsData();
 	}, []);
 
+	// Define Id to delete
 	const handleDelete = (id: string) => {
 		setCarsData((prevData) => prevData.filter((item) => item.id !== id));
 	};
