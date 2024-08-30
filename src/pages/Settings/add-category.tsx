@@ -8,7 +8,7 @@ import InputComponent from "../../components/inputs";
 export default function AddModal() {
 	// Use Context
 	const { addTaskModal, setAddtaskModal, setData } = useGlobalContext();
-	
+
 	// New states
 	const [nameEn, setNameEn] = useState("");
 	const [nameRu, setNameRu] = useState("");
@@ -40,7 +40,6 @@ export default function AddModal() {
 			body: formData,
 			headers: {
 				Authorization: `Bearer ${token}`,
-				//"Content-Type": "multipart/form-data",
 			},
 		})
 			.then((res) => res.json())
