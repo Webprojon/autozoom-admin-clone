@@ -5,7 +5,7 @@ import { ClockLoader } from "react-spinners";
 import UpdateModal from "./modal-brand";
 import AddModal from "./add-brand";
 import { FaEdit } from "react-icons/fa";
-import DeleteIcon from "../../components/Delete";
+import DeleteIcon from "../../components/delete";
 
 export default function Brands() {
 	const {

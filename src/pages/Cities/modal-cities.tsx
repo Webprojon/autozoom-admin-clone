@@ -1,8 +1,9 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useGlobalContext } from "../../context/global-context";
-import InputComponent from "../../components/Input";
-import ImgUploadComponent from "../../components/Img-Upload";
+import InputComponent from "../../components/input";
+import ImgUploadComponent from "../../components/img-upload";
+import ModalButtons from "../../components/modal-buttons";
 
 export default function UpdateModal() {
 	const { updateTaskModal, setUpdatetaskModal, itemId, data, refetchData } =
@@ -88,18 +89,11 @@ export default function UpdateModal() {
 						handleUploadImage={handleImageChange}
 						label="Upload Image"
 					/>
-
-					<div className="space-x-4 self-end cursor-pointer text-[17px] transition-all">
-						<button
-							onClick={handleToggleModal}
-							className="hover:bg-slate-800 hover:text-white border border-black/50 rounded-md py-1 px-5"
-						>
-							Cancel
-						</button>
-						<button className="hover:bg-slate-700 py-1 px-7 rounded-md bg-slate-800 text-white">
-							Update
-						</button>
-					</div>
+					{/* Cancel Or Update Buttons */}
+					<ModalButtons
+						handleToggleModal={handleToggleModal}
+						btntext="Update"
+					/>
 				</form>
 			</div>
 		</section>

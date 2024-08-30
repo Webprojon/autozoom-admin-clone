@@ -1,9 +1,10 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useGlobalContext } from "../../context/global-context";
 import toast from "react-hot-toast";
-import InputComponent from "../../components/Input";
-import SelectComponent from "../../components/Select";
-import ImgUploadComponent from "../../components/Img-Upload";
+import InputComponent from "../../components/input";
+import SelectComponent from "../../components/select";
+import ImgUploadComponent from "../../components/img-upload";
+import ModalButtons from "../../components/modal-buttons";
 
 interface DataType {
 	id: string;
@@ -306,20 +307,8 @@ export default function AddModal() {
 							cover image"
 					/>
 
-					<div className="space-x-4 self-end cursor-pointer text-[17px] transition-all">
-						<button
-							onClick={handleToggleModal}
-							className="hover:bg-slate-800 hover:text-white border border-black/50 rounded-md py-1 px-5"
-						>
-							Cancel
-						</button>
-						<button
-							type="submit"
-							className="hover:bg-slate-700 py-1 px-7 rounded-md bg-slate-800 text-white"
-						>
-							Add
-						</button>
-					</div>
+					{/* Cancel Or Add Buttons */}
+					<ModalButtons handleToggleModal={handleToggleModal} btntext="Add" />
 				</form>
 			</div>
 		</section>

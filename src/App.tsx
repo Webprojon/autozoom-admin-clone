@@ -1,7 +1,7 @@
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
-import LogIn from "./components/LogIn";
+import LogIn from "./components/log-in";
 import { useEffect } from "react";
-import Header from "./components/Header";
+import Header from "./components/header";
 import Settings from "./pages/Settings/Settings";
 import Brands from "./pages/Brands/Brands";
 import Models from "./pages/Models/Models";
@@ -17,7 +17,7 @@ function App() {
 
 	useEffect(() => {
 		if (userToken?.includes("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ey")) {
-			navigate("/cars");
+			navigate("/settings");
 		} else {
 			navigate("/login");
 		}

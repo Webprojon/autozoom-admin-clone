@@ -1,8 +1,9 @@
 import { FormEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useGlobalContext } from "../../context/global-context";
-import InputComponent from "../../components/Input";
-import SelectComponent from "../../components/Select";
+import InputComponent from "../../components/input";
+import SelectComponent from "../../components/select";
+import ModalButtons from "../../components/modal-buttons";
 
 interface DataType {
 	id: string;
@@ -103,17 +104,11 @@ export default function UpdateModal() {
 						/>
 					</div>
 
-					<div className="space-x-4 self-end cursor-pointer text-[17px] transition-all">
-						<button
-							onClick={handleToggleModal}
-							className="hover:bg-slate-800 hover:text-white border border-black/50 rounded-md py-1 px-5"
-						>
-							Cancel
-						</button>
-						<button className="hover:bg-slate-700 py-1 px-7 rounded-md bg-slate-800 text-white">
-							Update
-						</button>
-					</div>
+					{/* Cancel Or Update Buttons */}
+					<ModalButtons
+						handleToggleModal={handleToggleModal}
+						btntext="Update"
+					/>
 				</form>
 			</div>
 		</section>

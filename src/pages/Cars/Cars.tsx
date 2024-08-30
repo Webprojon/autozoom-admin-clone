@@ -5,7 +5,7 @@ import { ClockLoader } from "react-spinners";
 import AddModal from "../Cars/add-cars";
 import UpdateModal from "../Cars/modal-cars";
 import { FaEdit } from "react-icons/fa";
-import DeleteIcon from "../../components/Delete";
+import DeleteIcon from "../../components/delete";
 
 export default function Cars() {
 	const {
