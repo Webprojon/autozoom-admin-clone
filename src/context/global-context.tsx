@@ -28,6 +28,20 @@ interface DataType {
 	};
 }
 
+interface CarsDataType {
+	id: string;
+	category: {
+		name_en: string;
+	};
+	model: {
+		name: string;
+	};
+	color: string;
+	city: {
+		name: string;
+	};
+}
+
 export interface GlobalContextType {
 	addTaskModal: boolean;
 	setAddtaskModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -39,6 +53,8 @@ export interface GlobalContextType {
 	setItemId: React.Dispatch<React.SetStateAction<string>>;
 	data: DataType[];
 	setData: React.Dispatch<React.SetStateAction<DataType[]>>;
+	carsData: CarsDataType[];
+	setCarsData: React.Dispatch<React.SetStateAction<CarsDataType[]>>;
 	refetchData: (category: string) => void;
 }
 
@@ -56,11 +72,15 @@ export const GlobalContextProvider: React.FC<GlobalProviderProps> = ({
 	const [loader, setLoader] = useState<boolean>(true);
 	const [itemId, setItemId] = useState<string>("");
 	const [data, setData] = useState<DataType[]>([]);
+	const [carsData, setCarsData] = useState<CarsDataType[]>([]);
 
 	const refetchData = (category: string) => {
 		fetch(`https://autoapi.dezinfeksiyatashkent.uz/api/${category}`)
 			.then((response) => response.json())
-			.then((data) => setData(data.data))
+			.then((data) => {
+				setData(data.data);
+				setCarsData(data.data);
+			})
 			.catch((error) => console.error("Error fetching data:", error));
 	};
 
@@ -77,6 +97,8 @@ export const GlobalContextProvider: React.FC<GlobalProviderProps> = ({
 				setItemId,
 				data,
 				setData,
+				carsData,
+				setCarsData,
 				refetchData,
 			}}
 		>

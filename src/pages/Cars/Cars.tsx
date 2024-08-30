@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { MdFormatListBulletedAdd } from "react-icons/md";
 import { useGlobalContext } from "../../context/global-context";
 import { ClockLoader } from "react-spinners";
@@ -6,20 +6,6 @@ import AddModal from "../Cars/add-cars";
 import UpdateModal from "../Cars/modal-cars";
 import { FaEdit } from "react-icons/fa";
 import DeleteIcon from "../../components/Delete";
-
-interface CarsDataType {
-	id: string;
-	category: {
-		name_en: string;
-	};
-	model: {
-		name: string;
-	};
-	color: string;
-	city: {
-		name: string;
-	};
-}
 
 export default function Cars() {
 	const {
@@ -29,9 +15,10 @@ export default function Cars() {
 		setUpdatetaskModal,
 		setItemId,
 		setLoader,
+		carsData,
+		setCarsData,
 		loader,
 	} = useGlobalContext();
-	const [carsData, setCarsData] = useState<CarsDataType[]>([]);
 
 	const getCategoriesData = () => {
 		fetch("https://autoapi.dezinfeksiyatashkent.uz/api/cars")

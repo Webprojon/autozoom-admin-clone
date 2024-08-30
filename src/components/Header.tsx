@@ -55,7 +55,7 @@ export default function Header() {
 	return (
 		<header className="z-[999]">
 			<nav className="flex justify-between items-center px-6 bg-slate-800 h-[9vh] border-b border-gray-600 text-slate-300 font-semibold text-[20px]">
-				<h2>Avto Rent Admin</h2>
+				<h2>Autozoom Admin</h2>
 				<button onClick={logOut}>Log out</button>
 			</nav>
 

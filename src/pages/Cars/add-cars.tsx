@@ -169,7 +169,7 @@ export default function AddModal() {
 				className="fixed top-0 left-0 z-[400] bg-black/50 w-full h-[100vh]"
 			></div>
 			<div
-				className="p-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[55vh] no-scrollbar overflow-y-auto 
+				className="p-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[65vh] no-scrollbar overflow-y-auto 
 			rounded-lg bg-white z-[500]"
 			>
 				<h2 className="font-semibold leading-none text-[20px]">
