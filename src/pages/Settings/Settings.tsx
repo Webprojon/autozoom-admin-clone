@@ -8,7 +8,7 @@ import { FaEdit } from "react-icons/fa";
 import DeleteIcon from "../../components/delete";
 
 export default function Settings() {
-	// Use context
+	// Use Context
 	const {
 		data,
 		loader,
