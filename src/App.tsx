@@ -1,13 +1,13 @@
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import LogIn from "./components/log-in";
 import { useEffect } from "react";
-import Header from "./components/header";
 import Settings from "./pages/Settings/Settings";
 import Brands from "./pages/Brands/Brands";
 import Models from "./pages/Models/Models";
 import Locations from "./pages/Locations/Locations";
 import Cities from "./pages/Cities/Cities";
 import Cars from "./pages/Cars/Cars";
+import Header from "./components/header";
 
 function App() {
 	const navigate = useNavigate();

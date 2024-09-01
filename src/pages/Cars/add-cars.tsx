@@ -1,10 +1,10 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useGlobalContext } from "../../context/global-context";
 import toast from "react-hot-toast";
-import ImgUploadComponent from "../../components/img-upload";
 import ModalButtons from "../../components/modal-buttons";
 import SelectComponent from "../../components/selects";
 import InputComponent from "../../components/inputs";
+import ImgUploadComponent from "../../components/img-upload";
 
 interface DataType {
 	id: string;

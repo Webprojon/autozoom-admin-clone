@@ -1,9 +1,9 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useGlobalContext } from "../../context/global-context";
 import toast from "react-hot-toast";
-import ImgUploadComponent from "../../components/img-upload";
 import ModalButtons from "../../components/modal-buttons";
 import InputComponent from "../../components/inputs";
+import ImgUploadComponent from "../../components/img-upload";
 
 export default function AddModal() {
 	// Use context
