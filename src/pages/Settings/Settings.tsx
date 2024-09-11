@@ -6,8 +6,17 @@ import AddModal from "./add-category";
 import UpdateModal from "./modal-category";
 import { FaEdit } from "react-icons/fa";
 import DeleteIcon from "../../components/delete-item";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
+import { setOpenAddTaskModal } from "../../redux/slices-global";
 
 export default function Settings() {
+	// Redux
+	const dispatch: AppDispatch = useDispatch();
+	const addTaskModal = useSelector(
+		(state: RootState) => state.user.addTaskModal,
+	);
+
 	// Use context
 	const {
 		data,
@@ -15,9 +24,7 @@ export default function Settings() {
 		setData,
 		setLoader,
 		setItemId,
-		addTaskModal,
 		updateTaskModal,
-		setAddtaskModal,
 		setUpdatetaskModal,
 	} = useGlobalContext();
 
@@ -49,7 +56,7 @@ export default function Settings() {
 			<div className="flex justify-between items-center mr-6 font-semibold tracking-wide">
 				<h2 className="text-black/75 text-[20px]">Settings</h2>
 				<button
-					onClick={() => setAddtaskModal(!addTaskModal)}
+					onClick={() => dispatch(setOpenAddTaskModal())}
 					className="bg-slate-800 text-slate-300 flex items-center px-4 py-[5px] rounded-md hover:bg-slate-700 transition-all"
 				>
 					<MdFormatListBulletedAdd className="mr-2" />

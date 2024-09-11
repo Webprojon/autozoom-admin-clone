@@ -8,6 +8,8 @@ import Locations from "./pages/Locations/Locations";
 import Cities from "./pages/Cities/Cities";
 import Cars from "./pages/Cars/Cars";
 import Header from "./components/headers";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
 function App() {
 	const navigate = useNavigate();
@@ -24,18 +26,20 @@ function App() {
 	}, []);
 
 	return (
-		<section className="bg-gray-50 h-[100vh]">
-			{pathname ? <Header /> : null}
-			<Routes>
-				<Route path="/login" element={<LogIn />} />
-				<Route path="/settings" element={<Settings />} />
-				<Route path="/brands" element={<Brands />} />
-				<Route path="/models" element={<Models />} />
-				<Route path="/locations" element={<Locations />} />
-				<Route path="/cities" element={<Cities />} />
-				<Route path="/cars" element={<Cars />} />
-			</Routes>
-		</section>
+		<Provider store={store}>
+			<section className="bg-gray-50 h-[100vh]">
+				{pathname ? <Header /> : null}
+				<Routes>
+					<Route path="/login" element={<LogIn />} />
+					<Route path="/settings" element={<Settings />} />
+					<Route path="/brands" element={<Brands />} />
+					<Route path="/models" element={<Models />} />
+					<Route path="/locations" element={<Locations />} />
+					<Route path="/cities" element={<Cities />} />
+					<Route path="/cars" element={<Cars />} />
+				</Routes>
+			</section>
+		</Provider>
 	);
 }
 
