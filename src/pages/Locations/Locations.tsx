@@ -5,7 +5,7 @@ import { ClockLoader } from "react-spinners";
 import AddModal from "./add-location";
 import UpdateModal from "./modal-location";
 import { FaEdit } from "react-icons/fa";
-import DeleteIcon from "../../components/delete";
+import DeleteIcon from "../../components/delete-item";
 
 export default function Locations() {
 	// Use context

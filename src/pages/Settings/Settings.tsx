@@ -5,7 +5,7 @@ import { ClockLoader } from "react-spinners";
 import AddModal from "./add-category";
 import UpdateModal from "./modal-category";
 import { FaEdit } from "react-icons/fa";
-import DeleteIcon from "../../components/delete";
+import DeleteIcon from "../../components/delete-item";
 
 export default function Settings() {
 	// Use context

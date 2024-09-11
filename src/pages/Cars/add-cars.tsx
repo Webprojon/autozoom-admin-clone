@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import ModalButtons from "../../components/modal-buttons";
 import SelectComponent from "../../components/selects";
 import InputComponent from "../../components/inputs";
-import ImgUploadComponent from "../../components/img-upload";
+import ImgUploadComponent from "../../components/upload-img";
 
 interface DataType {
 	id: string;

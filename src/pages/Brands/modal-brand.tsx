@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import { useGlobalContext } from "../../context/global-context";
 import ModalButtons from "../../components/modal-buttons";
 import InputComponent from "../../components/inputs";
-import ImgUploadComponent from "../../components/img-upload";
+import ImgUploadComponent from "../../components/upload-img";
 
 export default function UpdateModal() {
 	// Use Context
