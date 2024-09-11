@@ -7,7 +7,7 @@ import Models from "./pages/Models/Models";
 import Locations from "./pages/Locations/Locations";
 import Cities from "./pages/Cities/Cities";
 import Cars from "./pages/Cars/Cars";
-import Header from "./components/header";
+import Header from "./components/headers";
 
 function App() {
 	const navigate = useNavigate();
