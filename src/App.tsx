@@ -11,7 +11,7 @@ import Header from "./components/header";
 
 function App() {
 	const navigate = useNavigate();
-	const userToken = localStorage.getItem("loginToken");
+	const userToken = sessionStorage.getItem("loginToken");
 	const location = useLocation();
 	const pathname = location.pathname !== "/login";
 

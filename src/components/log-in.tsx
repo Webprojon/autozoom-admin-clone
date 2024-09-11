@@ -28,7 +28,7 @@ export default function LogIn() {
 
 			if (res.success) {
 				const logintoken = res?.data?.tokens?.accessToken?.token;
-				localStorage.setItem("loginToken", logintoken);
+				sessionStorage.setItem("loginToken", logintoken);
 				toast.success("Successfully logged in!");
 				setTimeout(() => {
 					navigate("/settings");
