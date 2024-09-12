@@ -4,8 +4,8 @@ import toast from "react-hot-toast";
 import ModalButtons from "../../components/modal-buttons";
 import InputComponent from "../../components/inputs";
 import SelectComponent from "../../components/selects";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../redux/store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store";
 import { setCloseAddTaskModal } from "../../redux/slices-global";
 
 interface DataType {
