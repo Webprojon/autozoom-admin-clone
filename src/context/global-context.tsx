@@ -43,10 +43,6 @@ interface CarsDataType {
 }
 
 export interface GlobalContextType {
-	addTaskModal: boolean;
-	setAddtaskModal: React.Dispatch<React.SetStateAction<boolean>>;
-	updateTaskModal: boolean;
-	setUpdatetaskModal: React.Dispatch<React.SetStateAction<boolean>>;
 	loader: boolean;
 	setLoader: React.Dispatch<React.SetStateAction<boolean>>;
 	itemId: string;
@@ -68,8 +64,6 @@ export const GlobalContextProvider: React.FC<GlobalProviderProps> = ({
 	children,
 }) => {
 	// New states
-	const [addTaskModal, setAddtaskModal] = useState<boolean>(false);
-	const [updateTaskModal, setUpdatetaskModal] = useState<boolean>(false);
 	const [loader, setLoader] = useState<boolean>(true);
 	const [itemId, setItemId] = useState<string>("");
 	const [data, setData] = useState<DataType[]>([]);
@@ -89,10 +83,6 @@ export const GlobalContextProvider: React.FC<GlobalProviderProps> = ({
 	return (
 		<GlobalContext.Provider
 			value={{
-				addTaskModal,
-				setAddtaskModal,
-				updateTaskModal,
-				setUpdatetaskModal,
 				loader,
 				setLoader,
 				itemId,

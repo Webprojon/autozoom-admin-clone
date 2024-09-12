@@ -4,6 +4,9 @@ import toast from "react-hot-toast";
 import ModalButtons from "../../components/modal-buttons";
 import InputComponent from "../../components/inputs";
 import SelectComponent from "../../components/selects";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
+import { setCloseAddTaskModal } from "../../redux/slices-global";
 
 interface DataType {
 	id: string;
@@ -22,10 +25,11 @@ interface DataType {
 }
 
 export default function AddModal() {
+	// Redux
+	const dispatch: AppDispatch = useDispatch();
+
 	// Use Context
-	const { addTaskModal, setAddtaskModal, setData, refetchData } =
-	
-		useGlobalContext();
+	const { setData, refetchData } = useGlobalContext();
 	// New states
 	const [brands, setBrands] = useState<DataType[]>([]);
 	const [modelName, setModelName] = useState("");
@@ -63,7 +67,7 @@ export default function AddModal() {
 
 	// Toggle modal open or close
 	const handleToggleModal = () => {
-		setAddtaskModal(!addTaskModal);
+		dispatch(setCloseAddTaskModal());
 	};
 
 	// Get data value for Select

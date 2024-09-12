@@ -5,6 +5,9 @@ import ModalButtons from "../../components/modal-buttons";
 import SelectComponent from "../../components/selects";
 import InputComponent from "../../components/inputs";
 import ImgUploadComponent from "../../components/upload-img";
+import { setCloseAddTaskModal } from "../../redux/slices-global";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store";
 
 interface DataType {
 	id: string;
@@ -28,9 +31,11 @@ export default function AddModal() {
 	// Api url
 	const apiUrl = "https://autoapi.dezinfeksiyatashkent.uz/api";
 
+	// Redux
+	const dispatch: AppDispatch = useDispatch();
+
 	// Use context
-	const { addTaskModal, setAddtaskModal, setData, refetchData } =
-		useGlobalContext();
+	const { setData, refetchData } = useGlobalContext();
 
 	// New states
 	const [categories, setCategories] = useState<DataType[]>([]);
@@ -167,7 +172,7 @@ export default function AddModal() {
 
 	// Toggle modal open or close
 	const handleToggleModal = () => {
-		setAddtaskModal(!addTaskModal);
+		dispatch(setCloseAddTaskModal());
 	};
 
 	return (

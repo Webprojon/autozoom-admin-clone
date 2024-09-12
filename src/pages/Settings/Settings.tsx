@@ -8,25 +8,20 @@ import { FaEdit } from "react-icons/fa";
 import DeleteIcon from "../../components/delete-item";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
-import { setOpenAddTaskModal } from "../../redux/slices-global";
+import {
+	setOpenAddTaskModal,
+	setOpenUpdateTaskModal,
+} from "../../redux/slices-global";
 
 export default function Settings() {
 	// Redux
 	const dispatch: AppDispatch = useDispatch();
-	const addTaskModal = useSelector(
-		(state: RootState) => state.user.addTaskModal,
+	const { addTaskModal, updateTaskModal } = useSelector(
+		(state: RootState) => state.user,
 	);
 
 	// Use context
-	const {
-		data,
-		loader,
-		setData,
-		setLoader,
-		setItemId,
-		updateTaskModal,
-		setUpdatetaskModal,
-	} = useGlobalContext();
+	const { data, loader, setData, setLoader, setItemId } = useGlobalContext();
 
 	// Fetch main data
 	const getCategoriesData = () => {
@@ -100,7 +95,7 @@ export default function Settings() {
 							>
 								{/* Update Button */}
 								<div
-									onClick={() => setUpdatetaskModal(!updateTaskModal)}
+									onClick={() => dispatch(setOpenUpdateTaskModal())}
 									className="relative"
 								>
 									<FaEdit className="size-7 text-sky-600" />

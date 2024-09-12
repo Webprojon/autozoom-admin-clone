@@ -4,6 +4,9 @@ import { useGlobalContext } from "../../context/global-context";
 import ModalButtons from "../../components/modal-buttons";
 import InputComponent from "../../components/inputs";
 import SelectComponent from "../../components/selects";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store";
+import { setCloseUpdateTaskModal } from "../../redux/slices-global";
 
 interface DataType {
 	id: string;
@@ -22,10 +25,11 @@ interface DataType {
 }
 
 export default function UpdateModal() {
+	// Redux
+	const dispatch: AppDispatch = useDispatch();
+
 	// Use Context
-	const { updateTaskModal, setUpdatetaskModal, itemId, data, refetchData } =
-	
-		useGlobalContext();
+	const { itemId, data, refetchData } = useGlobalContext();
 
 	// New states
 	const [brands, setBrands] = useState<DataType[]>([]);
@@ -72,7 +76,7 @@ export default function UpdateModal() {
 
 	// Toggle modal open or close
 	const handleToggleModal = () => {
-		setUpdatetaskModal(!updateTaskModal);
+		dispatch(setCloseUpdateTaskModal());
 	};
 
 	// Get data value for Select

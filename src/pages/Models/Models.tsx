@@ -6,20 +6,22 @@ import UpdateModal from "./modal-model";
 import AddModal from "./add-model";
 import { FaEdit } from "react-icons/fa";
 import DeleteIcon from "../../components/delete-item";
+import {
+	setOpenAddTaskModal,
+	setOpenUpdateTaskModal,
+} from "../../redux/slices-global";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
 
 export default function Brands() {
+	// Redux
+	const dispatch: AppDispatch = useDispatch();
+	const { addTaskModal, updateTaskModal } = useSelector(
+		(state: RootState) => state.user,
+	);
+
 	// Use context
-	const {
-		data,
-		loader,
-		setData,
-		setLoader,
-		setItemId,
-		addTaskModal,
-		setAddtaskModal,
-		updateTaskModal,
-		setUpdatetaskModal,
-	} = useGlobalContext();
+	const { data, loader, setData, setLoader, setItemId } = useGlobalContext();
 
 	// Fetch main data
 	const getModelsData = () => {
@@ -49,7 +51,7 @@ export default function Brands() {
 			<div className="flex justify-between items-center mr-6 font-semibold tracking-wide">
 				<h2 className="text-black/75 text-[20px]">Models</h2>
 				<button
-					onClick={() => setAddtaskModal(!addTaskModal)}
+					onClick={() => dispatch(setOpenAddTaskModal())}
 					className="bg-slate-800 text-slate-300 flex items-center px-4 py-[5px] rounded-md hover:bg-slate-700 transition-all"
 				>
 					<MdFormatListBulletedAdd className="mr-2" />
@@ -86,7 +88,7 @@ export default function Brands() {
 							>
 								{/* Update Button */}
 								<div
-									onClick={() => setUpdatetaskModal(!updateTaskModal)}
+									onClick={() => dispatch(setOpenUpdateTaskModal())}
 									className="relative"
 								>
 									<FaEdit className="size-7 text-sky-600" />

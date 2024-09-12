@@ -4,11 +4,16 @@ import { useGlobalContext } from "../../context/global-context";
 import ModalButtons from "../../components/modal-buttons";
 import InputComponent from "../../components/inputs";
 import ImgUploadComponent from "../../components/upload-img";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store";
+import { setCloseUpdateTaskModal } from "../../redux/slices-global";
 
 export default function UpdateModal() {
+	// Redux
+	const dispatch: AppDispatch = useDispatch();
+
 	// Use Context
-	const { updateTaskModal, setUpdatetaskModal, itemId, data, refetchData } =
-		useGlobalContext();
+	const { itemId, data, refetchData } = useGlobalContext();
 
 	// New states
 	const [nameEn, setNameEn] = useState("");
@@ -67,7 +72,7 @@ export default function UpdateModal() {
 
 	// Toggle modal open or close
 	const handleToggleModal = () => {
-		setUpdatetaskModal(!updateTaskModal);
+		dispatch(setCloseUpdateTaskModal());
 	};
 
 	return (

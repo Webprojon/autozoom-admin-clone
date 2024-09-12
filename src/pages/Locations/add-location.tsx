@@ -4,11 +4,17 @@ import toast from "react-hot-toast";
 import ModalButtons from "../../components/modal-buttons";
 import InputComponent from "../../components/inputs";
 import ImgUploadComponent from "../../components/upload-img";
+import { setCloseAddTaskModal } from "../../redux/slices-global";
+import { AppDispatch } from "../../redux/store";
+import { useDispatch } from "react-redux";
 
 export default function AddModal() {
+	// Redux
+	const dispatch: AppDispatch = useDispatch();
+
 	// 	// Use Context
-	const { addTaskModal, setAddtaskModal, setData } = useGlobalContext();
-	
+	const { setData } = useGlobalContext();
+
 	// New states
 	const [cityName, setCityName] = useState("");
 	const [cityText, setCityText] = useState("");
@@ -56,7 +62,7 @@ export default function AddModal() {
 
 	// Toggle modal open or close
 	const handleToggleModal = () => {
-		setAddtaskModal(!addTaskModal);
+		dispatch(setCloseAddTaskModal());
 	};
 
 	return (

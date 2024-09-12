@@ -6,20 +6,23 @@ import AddModal from "../Cars/add-cars";
 import UpdateModal from "../Cars/modal-cars";
 import { FaEdit } from "react-icons/fa";
 import DeleteIcon from "../../components/delete-item";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
+import {
+	setOpenAddTaskModal,
+	setOpenUpdateTaskModal,
+} from "../../redux/slices-global";
 
 export default function Cars() {
+	// Redux
+	const dispatch: AppDispatch = useDispatch();
+	const { addTaskModal, updateTaskModal } = useSelector(
+		(state: RootState) => state.user,
+	);
+
 	// Use context
-	const {
-		loader,
-		carsData,
-		setLoader,
-		setItemId,
-		setCarsData,
-		addTaskModal,
-		setAddtaskModal,
-		updateTaskModal,
-		setUpdatetaskModal,
-	} = useGlobalContext();
+	const { loader, carsData, setLoader, setItemId, setCarsData } =
+		useGlobalContext();
 
 	// Fetch main data
 	const getCarsData = () => {
@@ -49,7 +52,7 @@ export default function Cars() {
 			<div className="flex justify-between items-center mr-6 font-semibold tracking-wide">
 				<h2 className="text-black/75 text-[20px]">Cars</h2>
 				<button
-					onClick={() => setAddtaskModal(!addTaskModal)}
+					onClick={() => dispatch(setOpenAddTaskModal())}
 					className="bg-slate-800 text-slate-300 flex items-center px-4 py-[5px] rounded-md hover:bg-slate-700 transition-all"
 				>
 					<MdFormatListBulletedAdd className="mr-2" />
@@ -90,7 +93,7 @@ export default function Cars() {
 							>
 								{/* Update Button */}
 								<div
-									onClick={() => setUpdatetaskModal(!updateTaskModal)}
+									onClick={() => dispatch(setOpenUpdateTaskModal())}
 									className="relative"
 								>
 									<FaEdit className="size-7 text-sky-600" />
