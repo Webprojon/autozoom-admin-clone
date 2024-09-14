@@ -6,8 +6,8 @@ import SelectComponent from "../../components/selects";
 import InputComponent from "../../components/inputs";
 import ImgUploadComponent from "../../components/upload-img";
 import { setCloseUpdateTaskModal } from "../../redux/slices-global";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
 
 interface DataType {
 	id: string;
@@ -33,9 +33,10 @@ export default function UpdateModal() {
 
 	// Redux
 	const dispatch: AppDispatch = useDispatch();
+	const itemId = useSelector((state: RootState) => state.user.itemId);
 
 	// Use context
-	const { setData, itemId, refetchData } = useGlobalContext();
+	const { setData, refetchData } = useGlobalContext();
 
 	// New states
 	const [categories, setCategories] = useState<DataType[]>([]);

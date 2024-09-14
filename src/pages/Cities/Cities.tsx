@@ -9,6 +9,7 @@ import DeleteIcon from "../../components/delete-item";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import {
+	setItemId,
 	setOpenAddTaskModal,
 	setOpenUpdateTaskModal,
 } from "../../redux/slices-global";
@@ -21,7 +22,7 @@ export default function Locations() {
 	);
 
 	// Use context
-	const { data, loader, setData, setLoader, setItemId } = useGlobalContext();
+	const { data, loader, setData, setLoader } = useGlobalContext();
 
 	// Fetch main data
 	const getCitiesData = () => {
@@ -90,7 +91,7 @@ export default function Locations() {
 								/>
 							</li>
 							<li
-								onClick={() => setItemId(item.id)}
+								onClick={() => dispatch(setItemId(item.id))}
 								className="w-[4.6rem] flex items-center gap-x-4 cursor-pointer"
 							>
 								{/* Update Button */}
@@ -102,11 +103,7 @@ export default function Locations() {
 								</div>
 
 								{/* Delete Button */}
-								<DeleteIcon
-									whichOne="cities"
-									itemId={item.id}
-									onDelete={handleDelete}
-								/>
+								<DeleteIcon whichOne="cities" onDelete={handleDelete} />
 							</li>
 						</ul>
 					))}

@@ -4,8 +4,8 @@ import { useGlobalContext } from "../../context/global-context";
 import ModalButtons from "../../components/modal-buttons";
 import InputComponent from "../../components/inputs";
 import SelectComponent from "../../components/selects";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
 import { setCloseUpdateTaskModal } from "../../redux/slices-global";
 
 interface DataType {
@@ -27,9 +27,10 @@ interface DataType {
 export default function UpdateModal() {
 	// Redux
 	const dispatch: AppDispatch = useDispatch();
+	const itemId = useSelector((state: RootState) => state.user.itemId);
 
 	// Use Context
-	const { itemId, data, refetchData } = useGlobalContext();
+	const { data, refetchData } = useGlobalContext();
 
 	// New states
 	const [brands, setBrands] = useState<DataType[]>([]);

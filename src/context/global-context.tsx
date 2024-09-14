@@ -45,8 +45,6 @@ interface CarsDataType {
 export interface GlobalContextType {
 	loader: boolean;
 	setLoader: React.Dispatch<React.SetStateAction<boolean>>;
-	itemId: string;
-	setItemId: React.Dispatch<React.SetStateAction<string>>;
 	data: DataType[];
 	setData: React.Dispatch<React.SetStateAction<DataType[]>>;
 	carsData: CarsDataType[];
@@ -65,7 +63,6 @@ export const GlobalContextProvider: React.FC<GlobalProviderProps> = ({
 }) => {
 	// New states
 	const [loader, setLoader] = useState<boolean>(true);
-	const [itemId, setItemId] = useState<string>("");
 	const [data, setData] = useState<DataType[]>([]);
 	const [carsData, setCarsData] = useState<CarsDataType[]>([]);
 
@@ -85,8 +82,6 @@ export const GlobalContextProvider: React.FC<GlobalProviderProps> = ({
 			value={{
 				loader,
 				setLoader,
-				itemId,
-				setItemId,
 				data,
 				setData,
 				carsData,

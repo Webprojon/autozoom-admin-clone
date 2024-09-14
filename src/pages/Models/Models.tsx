@@ -7,6 +7,7 @@ import AddModal from "./add-model";
 import { FaEdit } from "react-icons/fa";
 import DeleteIcon from "../../components/delete-item";
 import {
+	setItemId,
 	setOpenAddTaskModal,
 	setOpenUpdateTaskModal,
 } from "../../redux/slices-global";
@@ -21,7 +22,7 @@ export default function Brands() {
 	);
 
 	// Use context
-	const { data, loader, setData, setLoader, setItemId } = useGlobalContext();
+	const { data, loader, setData, setLoader } = useGlobalContext();
 
 	// Fetch main data
 	const getModelsData = () => {
@@ -83,7 +84,7 @@ export default function Brands() {
 							<li className="w-[10rem]">{item.name}</li>
 							<li className="w-[10rem]">{item.brand_title}</li>
 							<li
-								onClick={() => setItemId(item.id)}
+								onClick={() => dispatch(setItemId(item.id))}
 								className="w-[4.6rem] flex items-center gap-x-4 cursor-pointer"
 							>
 								{/* Update Button */}
@@ -95,11 +96,7 @@ export default function Brands() {
 								</div>
 
 								{/* Delete Button */}
-								<DeleteIcon
-									whichOne="models"
-									itemId={item.id}
-									onDelete={handleDelete}
-								/>
+								<DeleteIcon whichOne="models" onDelete={handleDelete} />
 							</li>
 						</ul>
 					))}

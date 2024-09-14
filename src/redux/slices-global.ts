@@ -1,13 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface GlobalType {
 	addTaskModal: boolean;
 	updateTaskModal: boolean;
+	itemId: string;
 }
 
 const initialState: GlobalType = {
 	addTaskModal: false,
 	updateTaskModal: false,
+	itemId: "",
 };
 
 export const globalSlice = createSlice({
@@ -26,6 +28,9 @@ export const globalSlice = createSlice({
 		setCloseUpdateTaskModal: (state) => {
 			state.updateTaskModal = false;
 		},
+		setItemId: (state, actions: PayloadAction<string>) => {
+			state.itemId = actions.payload;
+		},
 	},
 });
 
@@ -34,4 +39,5 @@ export const {
 	setCloseAddTaskModal,
 	setCloseUpdateTaskModal,
 	setOpenUpdateTaskModal,
+	setItemId,
 } = globalSlice.actions;

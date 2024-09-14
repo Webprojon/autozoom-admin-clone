@@ -9,6 +9,7 @@ import DeleteIcon from "../../components/delete-item";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import {
+	setItemId,
 	setOpenAddTaskModal,
 	setOpenUpdateTaskModal,
 } from "../../redux/slices-global";
@@ -21,8 +22,7 @@ export default function Cars() {
 	);
 
 	// Use context
-	const { loader, carsData, setLoader, setItemId, setCarsData } =
-		useGlobalContext();
+	const { loader, carsData, setLoader, setCarsData } = useGlobalContext();
 
 	// Fetch main data
 	const getCarsData = () => {
@@ -88,7 +88,7 @@ export default function Cars() {
 							<li className="w-[14rem]">{item.color}</li>
 							<li className="w-[14rem]">{item.city.name}</li>
 							<li
-								onClick={() => setItemId(item.id)}
+								onClick={() => dispatch(setItemId(item.id))}
 								className="w-[4.6rem] flex items-center gap-x-4 cursor-pointer"
 							>
 								{/* Update Button */}
@@ -100,11 +100,7 @@ export default function Cars() {
 								</div>
 
 								{/* Delete Button */}
-								<DeleteIcon
-									whichOne="cars"
-									itemId={item.id}
-									onDelete={handleDelete}
-								/>
+								<DeleteIcon whichOne="cars" onDelete={handleDelete} />
 							</li>
 						</ul>
 					))}

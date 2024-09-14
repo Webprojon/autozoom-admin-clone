@@ -9,6 +9,7 @@ import DeleteIcon from "../../components/delete-item";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import {
+	setItemId,
 	setOpenAddTaskModal,
 	setOpenUpdateTaskModal,
 } from "../../redux/slices-global";
@@ -21,7 +22,7 @@ export default function Brands() {
 	);
 
 	// Use context
-	const { data, loader, setData, setLoader, setItemId } = useGlobalContext();
+	const { data, loader, setData, setLoader } = useGlobalContext();
 
 	// Fetch main data
 	const getBrandsData = () => {
@@ -88,7 +89,7 @@ export default function Brands() {
 								/>
 							</li>
 							<li
-								onClick={() => setItemId(item.id)}
+								onClick={() => dispatch(setItemId(item.id))}
 								className="w-[4.6rem] flex items-center gap-x-4 cursor-pointer"
 							>
 								{/* Update Button */}
@@ -99,11 +100,7 @@ export default function Brands() {
 									<FaEdit className="size-7 text-sky-600" />
 								</div>
 								{/* Delete Button */}
-								<DeleteIcon
-									whichOne="brands"
-									itemId={item.id}
-									onDelete={handleDelete}
-								/>
+								<DeleteIcon whichOne="brands" onDelete={handleDelete} />
 							</li>
 						</ul>
 					))}

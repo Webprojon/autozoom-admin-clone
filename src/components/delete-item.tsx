@@ -1,20 +1,18 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { RiDeleteBin5Fill, RiErrorWarningFill } from "react-icons/ri";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 interface DeleteIconProps {
 	whichOne: string;
-	itemId: string;
 	onDelete: (id: string) => void;
 }
 
-export default function DeleteIcon({
-	whichOne,
-	itemId,
-	onDelete,
-}: DeleteIconProps) {
+export default function DeleteIcon({ whichOne, onDelete }: DeleteIconProps) {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const token = localStorage.getItem("loginToken");
+	const itemId = useSelector((state: RootState) => state.user.itemId);
 
 	const deleteItem = async () => {
 		try {

@@ -5,15 +5,16 @@ import ModalButtons from "../../components/modal-buttons";
 import InputComponent from "../../components/inputs";
 import ImgUploadComponent from "../../components/upload-img";
 import { setCloseUpdateTaskModal } from "../../redux/slices-global";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
 
 export default function UpdateModal() {
 	// Redux
 	const dispatch: AppDispatch = useDispatch();
+	const itemId = useSelector((state: RootState) => state.user.itemId);
 
 	// Use Context
-	const { itemId, data, refetchData } = useGlobalContext();
+	const { data, refetchData } = useGlobalContext();
 
 	// New states
 	const [title, setTitle] = useState("");

@@ -11,6 +11,7 @@ import { AppDispatch, RootState } from "../../redux/store";
 import {
 	setOpenAddTaskModal,
 	setOpenUpdateTaskModal,
+	setItemId,
 } from "../../redux/slices-global";
 
 export default function Settings() {
@@ -21,7 +22,7 @@ export default function Settings() {
 	);
 
 	// Use context
-	const { data, loader, setData, setLoader, setItemId } = useGlobalContext();
+	const { data, loader, setData, setLoader } = useGlobalContext();
 
 	// Fetch main data
 	const getCategoriesData = () => {
@@ -90,7 +91,7 @@ export default function Settings() {
 								/>
 							</li>
 							<li
-								onClick={() => setItemId(item.id)}
+								onClick={() => dispatch(setItemId(item.id))}
 								className="w-[4.6rem] flex items-center gap-x-4 cursor-pointer"
 							>
 								{/* Update Button */}
@@ -102,11 +103,7 @@ export default function Settings() {
 								</div>
 
 								{/* Delete Button */}
-								<DeleteIcon
-									whichOne="categories"
-									itemId={item.id}
-									onDelete={handleDelete}
-								/>
+								<DeleteIcon whichOne="categories" onDelete={handleDelete} />
 							</li>
 						</ul>
 					))}
