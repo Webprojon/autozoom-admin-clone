@@ -1,5 +1,4 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import { useGlobalContext } from "../../context/global-context";
 import toast from "react-hot-toast";
 import ModalButtons from "../../components/modal-buttons";
 import InputComponent from "../../components/inputs";
@@ -7,13 +6,14 @@ import ImgUploadComponent from "../../components/upload-img";
 import { setCloseAddTaskModal } from "../../redux/slices-global";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
+import { UseGlobalContext } from "../../context/global-context";
 
 export default function AddModal() {
 	// Redux
 	const dispatch: AppDispatch = useDispatch();
 
 	// Use Context
-	const { setData } = useGlobalContext();
+	const { setData } = UseGlobalContext();
 
 	// New states
 	const [nameEn, setNameEn] = useState("");
@@ -38,6 +38,7 @@ export default function AddModal() {
 
 	// Fetch main data
 	const token = localStorage.getItem("loginToken");
+
 	const addNewCategoryItem = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
@@ -83,8 +84,8 @@ export default function AddModal() {
 					<InputComponent setState={setNameRu} value={nameRu} label="Name_ru" />
 
 					<ImgUploadComponent
-						handleUploadImage={handleImageChange}
 						label="Upload Image"
+						handleUploadImage={handleImageChange}
 					/>
 
 					{/* Cancel Or Add Buttons */}

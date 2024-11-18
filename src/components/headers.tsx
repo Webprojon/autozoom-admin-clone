@@ -5,13 +5,13 @@ import { FaStore } from "react-icons/fa";
 import { BiSolidCity } from "react-icons/bi";
 import { PiNotebookBold } from "react-icons/pi";
 import { GrMapLocation } from "react-icons/gr";
-import { useGlobalContext } from "../context/global-context";
+import { UseGlobalContext } from "../context/global-context";
 
 export default function Header() {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const pathname = location.pathname;
-	const { setLoader } = useGlobalContext();
+	const { setLoader } = UseGlobalContext();
 
 	const logOut = () => {
 		setTimeout(() => {

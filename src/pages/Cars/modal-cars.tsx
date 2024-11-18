@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useGlobalContext } from "../../context/global-context";
+import { UseGlobalContext } from "../../context/global-context";
 import ModalButtons from "../../components/modal-buttons";
 import SelectComponent from "../../components/selects";
 import InputComponent from "../../components/inputs";
@@ -36,7 +36,7 @@ export default function UpdateModal() {
 	const itemId = useSelector((state: RootState) => state.user.itemId);
 
 	// Use context
-	const { setData, refetchData } = useGlobalContext();
+	const { setData, refetchData } = UseGlobalContext();
 
 	// New states
 	const [categories, setCategories] = useState<DataType[]>([]);

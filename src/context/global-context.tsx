@@ -94,7 +94,7 @@ export const GlobalContextProvider: React.FC<GlobalProviderProps> = ({
 	);
 };
 
-export function useGlobalContext() {
+export function UseGlobalContext() {
 	const context = useContext(GlobalContext);
 	if (context === undefined) {
 		throw new Error(

@@ -1,6 +1,4 @@
-import { useEffect } from "react";
 import { MdFormatListBulletedAdd } from "react-icons/md";
-import { useGlobalContext } from "../../context/global-context";
 import { ClockLoader } from "react-spinners";
 import AddModal from "../Cars/add-cars";
 import UpdateModal from "../Cars/modal-cars";
@@ -13,36 +11,19 @@ import {
 	setOpenAddTaskModal,
 	setOpenUpdateTaskModal,
 } from "../../redux/slices-global";
+import { useFetch } from "../../hooks/useFetchCustomHook";
 
 export default function Cars() {
-	// Redux
 	const dispatch: AppDispatch = useDispatch();
 	const { addTaskModal, updateTaskModal } = useSelector(
 		(state: RootState) => state.user,
 	);
 
-	// Use context
-	const { loader, carsData, setLoader, setCarsData } = useGlobalContext();
-
-	// Fetch main data
-	const getCarsData = () => {
-		fetch("https://autoapi.dezinfeksiyatashkent.uz/api/cars")
-			.then((response) => response.json())
-			.then((data) => {
-				setCarsData(data.data);
-				setLoader(false);
-			})
-			.catch((error) => console.log(error));
-	};
-
-	// Load data
-	useEffect(() => {
-		getCarsData();
-	}, []);
+	const { data, setData, loading } = useFetch("cars");
 
 	// Define Id to delete
 	const handleDelete = (id: string) => {
-		setCarsData((prevData) => prevData.filter((item) => item.id !== id));
+		setData((prevData) => prevData.filter((item) => item.id !== id));
 	};
 
 	return (
@@ -72,16 +53,16 @@ export default function Cars() {
 				</div>
 
 				<div className="w-full p-6 h-[72vh] bg-slate-200 rounded-b-lg overflow-y-scroll no-scrollbar">
-					{loader && (
+					{loading && (
 						<div className="flex justify-center items-center h-full">
-							<ClockLoader color="#1e293b" loading={loader} />
+							<ClockLoader color="#1e293b" loading={loading} />
 						</div>
 					)}
 
-					{carsData?.map((item) => (
+					{data?.map((item) => (
 						<ul
 							key={item.id}
-							className="flex items-center justify-between capitalize border-b py-4 border-slate-300 font-semibold cursor-pointer text-slate-700 tracking-wide"
+							className="flex items-center justify-between capitalize border-b py-3 border-slate-300 font-semibold cursor-pointer text-slate-700 tracking-wide"
 						>
 							<li className="w-[14rem]">{item.category.name_en}</li>
 							<li className="w-[14rem]">{item.model.name}</li>

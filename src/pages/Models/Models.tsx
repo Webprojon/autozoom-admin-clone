@@ -1,6 +1,4 @@
-import { useEffect } from "react";
 import { MdFormatListBulletedAdd } from "react-icons/md";
-import { useGlobalContext } from "../../context/global-context";
 import { ClockLoader } from "react-spinners";
 import UpdateModal from "./modal-model";
 import AddModal from "./add-model";
@@ -13,6 +11,7 @@ import {
 } from "../../redux/slices-global";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
+import { useFetch } from "../../hooks/useFetchCustomHook";
 
 export default function Brands() {
 	// Redux
@@ -21,24 +20,7 @@ export default function Brands() {
 		(state: RootState) => state.user,
 	);
 
-	// Use context
-	const { data, loader, setData, setLoader } = useGlobalContext();
-
-	// Fetch main data
-	const getModelsData = () => {
-		fetch("https://autoapi.dezinfeksiyatashkent.uz/api/models")
-			.then((response) => response.json())
-			.then((data) => {
-				setData(data.data);
-				setLoader(false);
-			})
-			.catch((error) => console.log(error));
-	};
-
-	// Load data
-	useEffect(() => {
-		getModelsData();
-	}, []);
+	const { data, setData, loading } = useFetch("models");
 
 	// Define Id to delete
 	const handleDelete = (id: string) => {
@@ -70,16 +52,16 @@ export default function Brands() {
 				</div>
 
 				<div className="w-full p-6 h-[72vh] bg-slate-200 rounded-b-lg overflow-y-scroll no-scrollbar">
-					{loader && (
+					{loading && (
 						<div className="flex justify-center items-center h-full">
-							<ClockLoader color="#1e293b" loading={loader} />
+							<ClockLoader color="#1e293b" loading={loading} />
 						</div>
 					)}
 
 					{data.map((item) => (
 						<ul
 							key={item.id}
-							className="flex items-center justify-between border-b py-4 border-slate-300 capitalize font-semibold cursor-pointer text-slate-700 tracking-wide"
+							className="flex items-center justify-between border-b py-3 border-slate-300 capitalize font-semibold cursor-pointer text-slate-700 tracking-wide"
 						>
 							<li className="w-[10rem]">{item.name}</li>
 							<li className="w-[10rem]">{item.brand_title}</li>

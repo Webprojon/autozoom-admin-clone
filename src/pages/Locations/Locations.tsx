@@ -1,6 +1,4 @@
-import { useEffect } from "react";
 import { MdFormatListBulletedAdd } from "react-icons/md";
-import { useGlobalContext } from "../../context/global-context";
 import { ClockLoader } from "react-spinners";
 import AddModal from "./add-location";
 import UpdateModal from "./modal-location";
@@ -13,6 +11,7 @@ import {
 	setOpenAddTaskModal,
 	setOpenUpdateTaskModal,
 } from "../../redux/slices-global";
+import { useFetch } from "../../hooks/useFetchCustomHook";
 
 export default function Locations() {
 	// Redux
@@ -21,24 +20,7 @@ export default function Locations() {
 		(state: RootState) => state.user,
 	);
 
-	// Use context
-	const { data, loader, setData, setLoader } = useGlobalContext();
-
-	// Fetch main data
-	const getLocationsData = () => {
-		fetch("https://autoapi.dezinfeksiyatashkent.uz/api/locations")
-			.then((response) => response.json())
-			.then((data) => {
-				setData(data.data);
-				setLoader(false);
-			})
-			.catch((error) => console.log(error));
-	};
-
-	// Load data
-	useEffect(() => {
-		getLocationsData();
-	}, []);
+	const { data, setData, loading } = useFetch("locations");
 
 	// Define Id to delete
 	const handleDelete = (id: string) => {
@@ -71,23 +53,24 @@ export default function Locations() {
 				</div>
 
 				<div className="w-full p-6 h-[72vh] bg-slate-200 rounded-b-lg overflow-y-scroll no-scrollbar">
-					{loader && (
+					{loading && (
 						<div className="flex justify-center items-center h-full">
-							<ClockLoader color="#1e293b" loading={loader} />
+							<ClockLoader color="#1e293b" loading={loading} />
 						</div>
 					)}
 
 					{data.map((item) => (
 						<ul
 							key={item.id}
-							className="flex items-center justify-between capitalize border-b py-4 border-slate-300 font-semibold cursor-pointer text-slate-700 tracking-wide"
+							className="flex items-center justify-between capitalize border-b py-2 border-slate-300 font-semibold cursor-pointer text-slate-700 tracking-wide"
 						>
 							<li className="w-[14rem]">{item.name}</li>
 							<li className="w-[14rem]">{item.text}</li>
 							<li className="w-[5rem]">
 								<img
-									src={`https://autoapi.dezinfeksiyatashkent.uz/api/uploads/images/${item.image_src}`}
 									alt="imgs"
+									className="h-[3rem] w-full"
+									src={`https://autoapi.dezinfeksiyatashkent.uz/api/uploads/images/${item.image_src}`}
 								/>
 							</li>
 							<li

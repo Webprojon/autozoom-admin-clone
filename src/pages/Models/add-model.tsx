@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useState } from "react";
-import { useGlobalContext } from "../../context/global-context";
+import { UseGlobalContext } from "../../context/global-context";
 import toast from "react-hot-toast";
 import ModalButtons from "../../components/modal-buttons";
 import InputComponent from "../../components/inputs";
@@ -29,7 +29,7 @@ export default function AddModal() {
 	const dispatch: AppDispatch = useDispatch();
 
 	// Use Context
-	const { setData, refetchData } = useGlobalContext();
+	const { setData, refetchData } = UseGlobalContext();
 	// New states
 	const [brands, setBrands] = useState<DataType[]>([]);
 	const [modelName, setModelName] = useState("");
