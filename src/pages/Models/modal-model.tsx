@@ -4,40 +4,18 @@ import { UseGlobalContext } from "../../context/global-context";
 import ModalButtons from "../../components/modal-buttons";
 import InputComponent from "../../components/inputs";
 import SelectComponent from "../../components/selects";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../redux/store";
-import { setCloseUpdateTaskModal } from "../../redux/slices-global";
-
-interface DataType {
-	id: string;
-	name_en: string;
-	name_ru: string;
-	image_src: string;
-	title: string;
-	name: string;
-	brand_title: string;
-	text: string;
-	category_id: string;
-	brand_id: string;
-	model_id: string;
-	location_id: string;
-	city_id: string;
-}
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { DataType } from "../../hooks/types";
+import { useToggleUpdateModal } from "../../hooks/helperFn";
 
 export default function UpdateModal() {
-	// Redux
-	const dispatch: AppDispatch = useDispatch();
 	const itemId = useSelector((state: RootState) => state.user.itemId);
-
-	// Use Context
 	const { data, refetchData } = UseGlobalContext();
-
-	// New states
 	const [brands, setBrands] = useState<DataType[]>([]);
 	const [modelName, setModelName] = useState("");
 	const [brandName, setBrandName] = useState("");
 
-	// New form data
 	const formData = new FormData();
 	formData.append("name", modelName);
 	formData.append("brand_id", brandName);
@@ -67,17 +45,11 @@ export default function UpdateModal() {
 			.then((data) => {
 				if (data.success) {
 					toast.success(data.message);
-					handleToggleModal();
 					refetchData("models");
 				} else {
 					toast.error(data.message);
 				}
 			});
-	};
-
-	// Toggle modal open or close
-	const handleToggleModal = () => {
-		dispatch(setCloseUpdateTaskModal());
 	};
 
 	// Get data value for Select
@@ -93,7 +65,7 @@ export default function UpdateModal() {
 	return (
 		<section>
 			<div
-				onClick={handleToggleModal}
+				onClick={useToggleUpdateModal()}
 				className="fixed top-0 left-0 z-[400] bg-black/50 w-full h-[100vh]"
 			></div>
 			<div className="p-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] rounded-lg bg-white z-[500]">
@@ -119,7 +91,7 @@ export default function UpdateModal() {
 
 					{/* Cancel Or Update Buttons */}
 					<ModalButtons
-						handleToggleModal={handleToggleModal}
+						handleToggleModal={useToggleUpdateModal()}
 						btntext="Update"
 					/>
 				</form>

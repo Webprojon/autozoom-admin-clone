@@ -4,22 +4,13 @@ import toast from "react-hot-toast";
 import ModalButtons from "../../components/modal-buttons";
 import InputComponent from "../../components/inputs";
 import ImgUploadComponent from "../../components/upload-img";
-import { AppDispatch } from "../../redux/store";
-import { useDispatch } from "react-redux";
-import { setCloseAddTaskModal } from "../../redux/slices-global";
+import { useToggleModal } from "../../hooks/helperFn";
 
 export default function AddModal() {
-	// Redux
-	const dispatch: AppDispatch = useDispatch();
-
-	// Use Context
 	const { setData } = UseGlobalContext();
-
-	// New states
 	const [title, setTitle] = useState("");
 	const [newImage, setNewImage] = useState<File | null>(null);
 
-	// New form data
 	const formData = new FormData();
 	formData.append("title", title);
 	if (newImage) {
@@ -52,22 +43,16 @@ export default function AddModal() {
 				if (data.success) {
 					setData((prevData) => [...prevData, data.data]);
 					toast.success(data.message);
-					handleToggleModal();
 				} else {
 					toast.error(data.message);
 				}
 			});
 	};
 
-	// Toggle modal open or close
-	const handleToggleModal = () => {
-		dispatch(setCloseAddTaskModal());
-	};
-
 	return (
 		<section>
 			<div
-				onClick={handleToggleModal}
+				onClick={useToggleModal()}
 				className="fixed top-0 left-0 z-[400] bg-black/50 w-full h-[100vh]"
 			></div>
 			<div className="p-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] rounded-lg bg-white z-[500]">
@@ -90,7 +75,7 @@ export default function AddModal() {
 					/>
 
 					{/* Cancel Or Add Buttons */}
-					<ModalButtons handleToggleModal={handleToggleModal} btntext="Add" />
+					<ModalButtons handleToggleModal={useToggleModal()} btntext="Add" />
 				</form>
 			</div>
 		</section>

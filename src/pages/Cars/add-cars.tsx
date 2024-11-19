@@ -5,39 +5,13 @@ import ModalButtons from "../../components/modal-buttons";
 import SelectComponent from "../../components/selects";
 import InputComponent from "../../components/inputs";
 import ImgUploadComponent from "../../components/upload-img";
-import { setCloseAddTaskModal } from "../../redux/slices-global";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../redux/store";
-
-interface DataType {
-	id: string;
-	name_en: string;
-	name_ru: string;
-	image_src: string;
-	title: string;
-	name: string;
-	brand_title: string;
-	text: string;
-	category_id: string;
-	brand_id: string;
-	model_id: string;
-	location_id: string;
-	city_id: string;
-}
-
-type SetStateType = (data: DataType[]) => void;
+import { useToggleModal } from "../../hooks/helperFn";
+import { DataType, SetStateType } from "../../hooks/types";
+import { BASE_URL } from "../../hooks/useFetchCustomHook";
 
 export default function AddModal() {
-	// Api url
-	const apiUrl = "https://autoapi.dezinfeksiyatashkent.uz/api";
-
-	// Redux
-	const dispatch: AppDispatch = useDispatch();
-
-	// Use context
 	const { setData, refetchData } = UseGlobalContext();
 
-	// New states
 	const [categories, setCategories] = useState<DataType[]>([]);
 	const [brands, setBrands] = useState<DataType[]>([]);
 	const [models, setModels] = useState<DataType[]>([]);
@@ -69,7 +43,6 @@ export default function AddModal() {
 	const [transmission, setTransmission] = useState("");
 	const [year, setYear] = useState("");
 
-	// New form data
 	const formdata = new FormData();
 	formdata.append("category_id", categoryValue);
 	formdata.append("brand_id", brandValue);
@@ -132,7 +105,7 @@ export default function AddModal() {
 	const addNewCategoryItem = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
-		fetch(`${apiUrl}/cars`, {
+		fetch(`${BASE_URL}/cars`, {
 			method: "POST",
 			body: formdata,
 			headers: {
@@ -144,7 +117,6 @@ export default function AddModal() {
 				if (data.success) {
 					setData((prevData) => [...prevData, data.data]);
 					toast.success(data.message);
-					handleToggleModal();
 					refetchData("cars");
 				} else {
 					toast.error(data.message);
@@ -154,7 +126,7 @@ export default function AddModal() {
 
 	// Fetch data value for selects
 	const fetching = (whichOne: string, setState: SetStateType) => {
-		fetch(`${apiUrl}/${whichOne}`)
+		fetch(`${BASE_URL}/${whichOne}`)
 			.then((response) => response.json())
 			.then((data) => {
 				setState(data.data);
@@ -170,15 +142,10 @@ export default function AddModal() {
 		fetching("cities", setCities);
 	}, []);
 
-	// Toggle modal open or close
-	const handleToggleModal = () => {
-		dispatch(setCloseAddTaskModal());
-	};
-
 	return (
 		<section>
 			<div
-				onClick={handleToggleModal}
+				onClick={useToggleModal()}
 				className="fixed top-0 left-0 z-[400] bg-black/50 w-full h-[100vh]"
 			></div>
 			<div
@@ -320,7 +287,7 @@ export default function AddModal() {
 					/>
 
 					{/* Cancel Or Add Buttons */}
-					<ModalButtons handleToggleModal={handleToggleModal} btntext="Add" />
+					<ModalButtons handleToggleModal={useToggleModal()} btntext="Add" />
 				</form>
 			</div>
 		</section>

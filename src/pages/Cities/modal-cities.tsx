@@ -4,24 +4,17 @@ import { UseGlobalContext } from "../../context/global-context";
 import ModalButtons from "../../components/modal-buttons";
 import InputComponent from "../../components/inputs";
 import ImgUploadComponent from "../../components/upload-img";
-import { setCloseUpdateTaskModal } from "../../redux/slices-global";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../redux/store";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { useToggleUpdateModal } from "../../hooks/helperFn";
 
 export default function UpdateModal() {
-	// Redux
-	const dispatch: AppDispatch = useDispatch();
 	const itemId = useSelector((state: RootState) => state.user.itemId);
-
-	// Use context
 	const { data, refetchData } = UseGlobalContext();
-
-	// New states
 	const [country, setCountry] = useState("");
 	const [cityName, setCityName] = useState("");
 	const [newImage, setNewImage] = useState<File | null>(null);
 
-	// New form data
 	const formData = new FormData();
 	formData.append("name", country);
 	formData.append("text", cityName);
@@ -62,7 +55,6 @@ export default function UpdateModal() {
 			.then((data) => {
 				if (data.success) {
 					toast.success(data.message);
-					handleToggleModal();
 					refetchData("cities");
 				} else {
 					toast.error(data.message);
@@ -70,15 +62,10 @@ export default function UpdateModal() {
 			});
 	};
 
-	// Toggle modal open or close
-	const handleToggleModal = () => {
-		dispatch(setCloseUpdateTaskModal());
-	};
-
 	return (
 		<section>
 			<div
-				onClick={handleToggleModal}
+				onClick={useToggleUpdateModal()}
 				className="fixed top-0 left-0 z-[400] bg-black/50 w-full h-[100vh]"
 			></div>
 			<div className="p-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] rounded-lg bg-white z-[500]">
@@ -104,8 +91,8 @@ export default function UpdateModal() {
 					/>
 					{/* Cancel Or Update Buttons */}
 					<ModalButtons
-						handleToggleModal={handleToggleModal}
 						btntext="Update"
+						handleToggleModal={useToggleUpdateModal()}
 					/>
 				</form>
 			</div>

@@ -4,38 +4,15 @@ import toast from "react-hot-toast";
 import ModalButtons from "../../components/modal-buttons";
 import InputComponent from "../../components/inputs";
 import SelectComponent from "../../components/selects";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../redux/store";
-import { setCloseAddTaskModal } from "../../redux/slices-global";
-
-interface DataType {
-	id: string;
-	name_en: string;
-	name_ru: string;
-	image_src: string;
-	title: string;
-	name: string;
-	brand_title: string;
-	text: string;
-	category_id: string;
-	brand_id: string;
-	model_id: string;
-	location_id: string;
-	city_id: string;
-}
+import { useToggleModal } from "../../hooks/helperFn";
+import { DataType } from "../../hooks/types";
 
 export default function AddModal() {
-	// Redux
-	const dispatch: AppDispatch = useDispatch();
-
-	// Use Context
 	const { setData, refetchData } = UseGlobalContext();
-	// New states
 	const [brands, setBrands] = useState<DataType[]>([]);
 	const [modelName, setModelName] = useState("");
 	const [brandName, setBrandName] = useState("");
 
-	// New form data
 	const formData = new FormData();
 	formData.append("name", modelName);
 	formData.append("brand_id", brandName);
@@ -57,17 +34,11 @@ export default function AddModal() {
 				if (data.success) {
 					setData((prevData) => [...prevData, data.data]);
 					toast.success(data.message);
-					handleToggleModal();
 					refetchData("models");
 				} else {
 					toast.error(data.message);
 				}
 			});
-	};
-
-	// Toggle modal open or close
-	const handleToggleModal = () => {
-		dispatch(setCloseAddTaskModal());
 	};
 
 	// Get data value for Select
@@ -83,7 +54,7 @@ export default function AddModal() {
 	return (
 		<section>
 			<div
-				onClick={handleToggleModal}
+				onClick={useToggleModal()}
 				className="fixed top-0 left-0 z-[400] bg-black/50 w-full h-[100vh]"
 			></div>
 			<div className="p-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] rounded-lg bg-white z-[500]">
@@ -110,7 +81,7 @@ export default function AddModal() {
 					</div>
 
 					{/* Cancel Or Add Buttons */}
-					<ModalButtons handleToggleModal={handleToggleModal} btntext="Add" />
+					<ModalButtons handleToggleModal={useToggleModal()} btntext="Add" />
 				</form>
 			</div>
 		</section>

@@ -5,40 +5,16 @@ import ModalButtons from "../../components/modal-buttons";
 import SelectComponent from "../../components/selects";
 import InputComponent from "../../components/inputs";
 import ImgUploadComponent from "../../components/upload-img";
-import { setCloseUpdateTaskModal } from "../../redux/slices-global";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../redux/store";
-
-interface DataType {
-	id: string;
-	name_en: string;
-	name_ru: string;
-	image_src: string;
-	title: string;
-	name: string;
-	brand_title: string;
-	text: string;
-	category_id: string;
-	brand_id: string;
-	model_id: string;
-	location_id: string;
-	city_id: string;
-}
-
-type SetStateType = (data: DataType[]) => void;
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { DataType, SetStateType } from "../../hooks/types";
+import { useToggleUpdateModal } from "../../hooks/helperFn";
+import { BASE_URL } from "../../hooks/useFetchCustomHook";
 
 export default function UpdateModal() {
-	// Api url
-	const apiUrl = "https://autoapi.dezinfeksiyatashkent.uz/api";
-
-	// Redux
-	const dispatch: AppDispatch = useDispatch();
 	const itemId = useSelector((state: RootState) => state.user.itemId);
-
-	// Use context
 	const { setData, refetchData } = UseGlobalContext();
 
-	// New states
 	const [categories, setCategories] = useState<DataType[]>([]);
 	const [brands, setBrands] = useState<DataType[]>([]);
 	const [models, setModels] = useState<DataType[]>([]);
@@ -70,7 +46,6 @@ export default function UpdateModal() {
 	const [transmission, setTransmission] = useState("");
 	const [year, setYear] = useState("");
 
-	// New form data
 	const formdata = new FormData();
 	formdata.append("category_id", categoryValue);
 	formdata.append("brand_id", brandValue);
@@ -133,7 +108,7 @@ export default function UpdateModal() {
 	const updateCategoryItem = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
-		fetch(`${apiUrl}/cars/${itemId}`, {
+		fetch(`${BASE_URL}/cars/${itemId}`, {
 			method: "PUT",
 			body: formdata,
 			headers: {
@@ -145,7 +120,6 @@ export default function UpdateModal() {
 				if (data.success) {
 					setData((prevData) => [...prevData, data.data]);
 					toast.success(data.message);
-					handleToggleModal();
 					refetchData("cars");
 				} else {
 					toast.error(data.message);
@@ -155,7 +129,7 @@ export default function UpdateModal() {
 
 	// Fetch data value for selects
 	const fetching = (whichOne: string, setState: SetStateType) => {
-		fetch(`${apiUrl}/${whichOne}`)
+		fetch(`${BASE_URL}/${whichOne}`)
 			.then((response) => response.json())
 			.then((data) => {
 				setState(data.data);
@@ -171,15 +145,10 @@ export default function UpdateModal() {
 		fetching("cities", setCities);
 	}, []);
 
-	// Toggle modal open or close
-	const handleToggleModal = () => {
-		dispatch(setCloseUpdateTaskModal());
-	};
-
 	return (
 		<section>
 			<div
-				onClick={handleToggleModal}
+				onClick={useToggleUpdateModal()}
 				className="fixed top-0 left-0 z-[400] bg-black/50 w-full h-[100vh]"
 			></div>
 			<div
@@ -322,8 +291,8 @@ export default function UpdateModal() {
 
 					{/* Cancel Or Update Buttons */}
 					<ModalButtons
-						handleToggleModal={handleToggleModal}
 						btntext="Update"
+						handleToggleModal={useToggleUpdateModal()}
 					/>
 				</form>
 			</div>
