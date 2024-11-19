@@ -6,20 +6,18 @@ import { FaEdit } from "react-icons/fa";
 import DeleteIcon from "../../components/delete-item";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
-import {
-	setOpenAddTaskModal,
-	setOpenUpdateTaskModal,
-	setItemId,
-} from "../../redux/slices-global";
 import { useFetch } from "../../hooks/useFetchCustomHook";
+import {
+	setItemId,
+	setToggleAddModal,
+	setToggleUpdateModal,
+} from "../../redux/slices-global";
 
 export default function Settings() {
-	// Redux
 	const dispatch: AppDispatch = useDispatch();
-	const { addTaskModal, updateTaskModal } = useSelector(
+	const { toggleAddModal, toggleUpdateModal } = useSelector(
 		(state: RootState) => state.user,
 	);
-
 	const { data, setData, loading } = useFetch("categories");
 
 	// Define Id to delete
@@ -29,12 +27,12 @@ export default function Settings() {
 
 	return (
 		<section className="ml-[18.3rem] mt-2">
-			{addTaskModal ? <AddModal /> : null}
-			{updateTaskModal ? <UpdateModal /> : null}
+			{toggleAddModal && <AddModal />}
+			{toggleUpdateModal && <UpdateModal />}
 			<div className="flex justify-between items-center mr-6 font-semibold tracking-wide">
 				<h2 className="text-black/75 text-[20px]">Settings</h2>
 				<button
-					onClick={() => dispatch(setOpenAddTaskModal())}
+					onClick={() => dispatch(setToggleAddModal())}
 					className="bg-slate-800 text-slate-300 flex items-center px-4 py-[5px] rounded-md hover:bg-slate-700 transition-all"
 				>
 					<MdFormatListBulletedAdd className="mr-2" />
@@ -79,8 +77,8 @@ export default function Settings() {
 							>
 								{/* Update Button */}
 								<div
-									onClick={() => dispatch(setOpenUpdateTaskModal())}
 									className="relative"
+									onClick={() => dispatch(setToggleUpdateModal())}
 								>
 									<FaEdit className="size-7 text-sky-600" />
 								</div>

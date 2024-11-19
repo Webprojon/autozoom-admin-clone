@@ -31,7 +31,6 @@ export default function AddModal() {
 	const token = localStorage.getItem("loginToken");
 	const addNewCategoryItem = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-
 		fetch("https://autoapi.dezinfeksiyatashkent.uz/api/categories", {
 			method: "POST",
 			body: formData,

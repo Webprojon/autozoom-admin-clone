@@ -11,11 +11,6 @@ export default function ImgUploadComponent({
 }: ImgUploadCarsProps) {
 	const [uploadedImage, setUploadedImage] = useState<string | null>(null);
 
-	//const [uploadedImage, setUploadedImage] = useState<string | null>(value);
-	//useEffect(() => {
-	//	setUploadedImage(value);
-	//}, [value]);
-
 	const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
 		handleUploadImage(e);
 
@@ -28,7 +23,6 @@ export default function ImgUploadComponent({
 					setUploadedImage(event.target.result as string);
 				}
 			};
-
 			reader.readAsDataURL(file);
 		}
 	};
@@ -42,7 +36,6 @@ export default function ImgUploadComponent({
 				{uploadedImage && (
 					<img
 						alt="Uploaded"
-						//src={`https://autoapi.dezinfeksiyatashkent.uz/api/uploads/images/${uploadedImage}`}
 						src={uploadedImage}
 						className="w-[160px] h-[12vh] border border-dashed border-sky-800 rounded"
 					/>

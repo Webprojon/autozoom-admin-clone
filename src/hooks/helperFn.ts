@@ -1,20 +1,20 @@
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/store";
 import {
-	setCloseAddTaskModal,
-	setCloseUpdateTaskModal,
+	setToggleAddModal,
+	setToggleUpdateModal,
 } from "../redux/slices-global";
 
 export const useToggleModal = () => {
 	const dispatch: AppDispatch = useDispatch();
 	return () => {
-		dispatch(setCloseAddTaskModal());
+		dispatch(setToggleAddModal());
 	};
 };
 
 export const useToggleUpdateModal = () => {
 	const dispatch: AppDispatch = useDispatch();
 	return () => {
-		dispatch(setCloseUpdateTaskModal());
+		dispatch(setToggleUpdateModal());
 	};
 };
